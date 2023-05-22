@@ -1,4 +1,4 @@
-//Import JWT
+// Import JWT
 // Get head authorization...checking starting with Bearer...if Yes get the rest as Token...Check it with the token by verifying it with JWT Secret
 
 import jwt from "jsonwebtoken";

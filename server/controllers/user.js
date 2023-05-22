@@ -1,18 +1,62 @@
-//to get user...we would have a id in the params...using that we find the user in our database...and we send back the User
-//to get user friends... the same procedure...we would access the User using id in params...now we need to access the Friends array of the User and send back the array
-//friend list previously had only the Ids of the friends...we need to update it to have information about the friends...so we look for each of the friend's id in the database and add them to the list
+import User from '../models/user';
 
-//For add/remove friends...we will have id and friendid in the params...now we get the user->friends list..now we check for the friend in the friend list ... if present we update the list with filtering out the friend's id (also friend's->freinds list and filter out current user)....else add the friend's id
-
-import User from "../models/User.js";
-
-/* READ */
-export const getUser = async (req, res) => {
+// Get all users
+const getUsers = async (req, res) => {
   try {
-    const { id } = req.params;
-    const user = await User.findById(id);
-    res.status(200).json(user);
-  } catch (err) {
-    res.status(404).json({ message: err.message });
+    const users = await User.find();
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };
+
+// Get a specific user by ID
+const getUserById = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      res.status(404).json({ message: 'User not found' });
+    } else {
+      res.status(200).json(user);
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+// Update a specific user by ID
+const updateUser = async (req, res) => {
+  try {
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!user) {
+      res.status(404).json({ message: 'User not found' });
+    } else {
+      res.status(200).json(user);
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Delete a specific user by ID
+const deleteUser = async (req, res) => {
+  try {
+    const user = await User.findByIdAndRemove(req.params.id);
+    if (!user) {
+      res.status(404).json({ message: 'User not found' });
+    } else {
+      res.status(200).json({ message: 'User deleted' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export {
+  getUsers,
+  getUserById,
+  updateUser,
+  deleteUser
+};
+  
