@@ -1,0 +1,15 @@
+# Ignore node_modules directory
+node_modules/
+# Ignore environment variables file
+.env
+# Ignore IDE and editor files
+.vscode/
+# Ignore dependency lock files
+package-lock.json
+
+
+
+
+
+
+
