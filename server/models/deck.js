@@ -4,14 +4,14 @@ import mongoose from "mongoose";
 const deckSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'Deck name is required.'],
+    required: [true, "Deck name is required."],
   },
   description: {
     type: String,
   },
   imgPath: {
     type: String,
-    default: '',
+    default: "",
   },
   createdAt: {
     type: Date,
@@ -19,7 +19,7 @@ const deckSchema = new mongoose.Schema({
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User",
     required: true,
   },
   isPublic: {
@@ -29,11 +29,11 @@ const deckSchema = new mongoose.Schema({
   sharedWith: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
     },
   ],
 });
 
-const Deck = mongoose.model('Deck', deckSchema);
+const Deck = mongoose.model("Deck", deckSchema);
 
 export default Deck;

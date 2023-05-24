@@ -14,6 +14,6 @@ import {
 router.use(verifyToken);
 
 router.route("/").get(getAllDecks).post(createDeck);
-router.route("/:id").get(getDeckById).put(updateDeck).delete(deleteDeck);
+router.route("/:id").get(getDeckById).patch(updateDeck).delete(deleteDeck);
 
 export default router;
