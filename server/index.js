@@ -1,6 +1,8 @@
-// import { register } from "./controllers/auth.js";
-// import authRoutes from "./routes/auth.js";
-// import userRoutes from "./routes/user.js";
+import { registerUser } from "./controllers/auth.js";
+import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/user.js";
+import deckRoutes from "./routes/deck.js";
+import flashcardRoutes from "./routes/flashcard.js";
 // import { verifyToken } from "./middleware/auth.js";
 
 import path from "path";
@@ -38,11 +40,14 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // ROUTES WITH FILES
-// app.post("/auth/register", upload.single("picture"), register);
-// app.post("/posts", verifyToken, upload.single("picture"), createPost);
 
+// Register a new user
+app.post("/auth/register", upload.single("picture"), registerUser);
+app.use("/auth", authRoutes);
 // ROUTES WITHOUT FILES
-
+app.use("/user", userRoutes);
+app.use("/deck", deckRoutes);
+app.use("/flashcard", flashcardRoutes);
 /* MONGOOSE SETUP */
 import mongoose from "mongoose";
 const PORT = process.env.PORT || 6001;
