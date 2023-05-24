@@ -22,10 +22,7 @@ const getDeckById = async (req, res) => {
 
 // Create a new deck
 const createDeck = async (req, res) => {
-  const deck = new Deck({
-    name: req.body.name,
-    // other deck properties
-  });
+  const deck = new Deck(req.body);
 
   try {
     const newDeck = await deck.save();

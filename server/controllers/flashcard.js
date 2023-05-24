@@ -22,11 +22,7 @@ const getFlashcardbyID = async (req, res) => {
 
 // Create a new flashcard
 const createFlashcard = async (req, res) => {
-  const flashcard = new Flashcard({
-    question: req.body.question,
-    answer: req.body.answer,
-    // other flashcard properties
-  });
+  const flashcard = new Flashcard(req.body);
 
   try {
     const newFlashcard = await flashcard.save();
