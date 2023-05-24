@@ -1,4 +1,5 @@
 import Flashcard from "../models/flashcard.js";
+import Deck from "../models/deck.js";
 
 // Get all flashcards
 const getAllFlashcards = async (req, res) => {
@@ -22,14 +23,10 @@ const getFlashcardbyID = async (req, res) => {
 
 // Create a new flashcard
 const createFlashcard = async (req, res) => {
-  const flashcard = new Flashcard({
-    question: req.body.question,
-    answer: req.body.answer,
-    // other flashcard properties
-  });
+  const flashcard = new Flashcard(req.body);
 
   try {
-    const newFlashcard = await flashcard.save();
+    const newFlashcard = await flashcard.save();    
     res.status(201).json(newFlashcard);
   } catch (error) {
     res.status(400).json({ message: error.message });

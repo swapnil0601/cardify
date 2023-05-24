@@ -22,12 +22,6 @@ const deckSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
-  flashcards: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Flashcard',
-    },
-  ],
   isPublic: {
     type: Boolean,
     default: false,

@@ -14,6 +14,9 @@ const getAllDecks = async (req, res) => {
 const getDeckById = async (req, res) => {
   try {
     const deck = await Deck.findById(req.params.id);
+    if (!deck) {
+      return res.status(404).json({ message: "Deck not found" });
+    }
     res.json(deck);
   } catch (error) {
     res.status(404).json({ message: "Deck not found" });
