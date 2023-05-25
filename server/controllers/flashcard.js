@@ -38,7 +38,8 @@ const editFlashcard = async (req, res) => {
   try {
     const flashcard = await Flashcard.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      // Can edit only question and answer
+      { $set: { question: req.body.question, answer: req.body.answer } },
       { new: true }
     );
     res.json(flashcard);
@@ -84,10 +85,10 @@ const scheduleFlashcard = (flashcard) => {
 
 // Update flashcard grade and schedule it
 const updateFlashcard = async (req, res) => {
-  const { flashcardId, grade } = req.body;
+  const { grade } = req.body;
 
   try {
-    const flashcard = await Flashcard.findById(flashcardId);
+    const flashcard = await Flashcard.findById(req.params.id);
     if (!flashcard) {
       return res.status(404).json({ message: "Flashcard not found" });
     }

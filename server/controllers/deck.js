@@ -1,3 +1,4 @@
+import { set } from "mongoose";
 import Deck from "../models/deck.js";
 
 // Get all decks
@@ -38,9 +39,14 @@ const createDeck = async (req, res) => {
 // Update a specific deck by its ID
 const updateDeck = async (req, res) => {
   try {
-    const deck = await Deck.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    const deck = await Deck.findByIdAndUpdate(
+      req.params.id,
+      // Can edit only name and description
+      {set: { name: req.body.name, description: req.body.description }},
+      {
+        new: true,
+      }
+    );
     res.json(deck);
   } catch (error) {
     res.status(404).json({ message: "Deck not found" });

@@ -18,8 +18,8 @@ router.route("/").get(getAllFlashcards).post(createFlashcard);
 router
   .route("/:id")
   .get(getFlashcardbyID)
-  .put(editFlashcard)
+  .patch(editFlashcard)
   .delete(deleteFlashcard);
-router.route("/review/:id").put(updateFlashcard);
+router.route("/review/:id").patch(updateFlashcard);
 
 export default router;
