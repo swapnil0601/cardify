@@ -1,10 +1,11 @@
 import React from "react";
+import Login from "../../components/Login";
 
 const login = () => {
   return (
-    <div>
-      <h1>Deck</h1>
-    </div>
+    <>
+      <Login />
+    </>
   );
 };
 

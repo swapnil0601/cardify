@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../app/redux/features/auth/authSlice';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -8,6 +10,10 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const user = useSelector((state) => state.auth.user);
+  console.log(user);
+  const dispatch = useDispatch();
 
   return (
     <nav className="bg-primary">
@@ -23,12 +29,31 @@ const Navbar = () => {
               <Link href="/decks">
                 <div className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Decks</div>
               </Link>
-              <Link href="/login">
-                <div className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Login</div>
-              </Link>
-              <Link href="/register">
-                <div className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Register</div>
-              </Link>
+
+              {/* Check if user is  logged in from redux store */}
+              {!user ? (
+                <>
+                  <Link href="/login">
+                    <div className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Login</div>
+                  </Link>
+                  <Link href="/register">
+                    <div className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Register</div>
+                  </Link>
+                </>
+              ) : (
+                <Link
+                  href="/"
+                  onClick={() => {
+                    dispatch(logout());
+                  }}
+                >
+                  <div className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Logout</div>
+                </Link>
+              )}
+
+
+
+
             </div>
           </div>
           <div className="md:hidden">
