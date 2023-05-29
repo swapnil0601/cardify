@@ -49,7 +49,8 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-1/2 p-10">
+    <div className="flex flex-col items-center justify-center ">
+      <div className="text-accent text-2xl font-bold mb-4">Login</div>
       <form className="w-64" onSubmit={handleSubmit}>
         <div className="mb-4">
           <label htmlFor="email" className="text-lg">
@@ -85,6 +86,18 @@ const LoginPage = () => {
       {/* If login fails, display an error message */}
 
       {message && <p className="text-red-500 mt-4">{message}</p>}
+
+      <div className="flex flex-col items-center justify-center">
+        <div className="mt-4 text-xs md:text-base w-full text-center">
+          <div className="flex flex-col items-center sm:flex-row sm:justify-center">
+            <span className="whitespace-nowrap">Don't have an account ?
+            </span>
+            <a href="/register" className="text-blue-500 hover:text-blue-700">
+              Register
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

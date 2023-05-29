@@ -46,8 +46,8 @@ const Register = () => {
       });
   };
   return (
-    <div className="flex flex-col items-center justify-center h-1/2 p-10">
-      <h2 className="text-2xl font-bold mb-4">Register Page</h2>
+    <div className="flex flex-col items-center justify-center ">
+      <div className="text-accent text-2xl font-bold mb-4">Sign Up</div>
       <div className="w-64">
         <input
           type="text"
@@ -101,6 +101,17 @@ const Register = () => {
 
         <div className="mt-4">
           {message && <p className="text-red-500">{message}</p>}
+        </div>
+
+        <div className="flex flex-col items-center justify-center">
+          <div className="mt-4 text-xs md:text-base w-full text-center">
+            <div className="flex flex-col items-center sm:flex-row sm:justify-center">
+              <span className="whitespace-nowrap">Already have an account?</span>
+              <a href="/login" className="text-blue-500 hover:text-blue-700">
+                Login
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>

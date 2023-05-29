@@ -20,9 +20,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme={usedTheme}>
       <body className={inter.className}>
-        <div id="portal" />
         <Providers>
-          <Navbar themeHandler={themeHandler} theme={theme} />
+          <div className="shadow-md">
+            <Navbar themeHandler={themeHandler} theme={theme} />
+          </div>
           {children}
         </Providers>
       </body>
