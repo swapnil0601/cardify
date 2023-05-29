@@ -2,7 +2,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
-import { openModal } from "../app/redux/features/modal/modalSlice";
 import { logout } from "../app/redux/features/auth/authSlice";
 import { Sun, Moon } from "react-feather";
 
@@ -13,9 +12,6 @@ const Navbar = ({ themeHandler, theme }) => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-  };
-  const openModalHandler = () => {
-    dispatch(openModal());
   };
   const user = useSelector((state) => state.auth.user);
   console.log(user);
@@ -40,14 +36,9 @@ const Navbar = ({ themeHandler, theme }) => {
               {/* Check if user is  logged in from redux store */}
               {!user ? (
                 <>
-                  <Link href="/login" onClick={openModalHandler}>
+                  <Link href="/login">
                     <div className="text-accent-content hover:text-base-content border-b-2 border-b-transparent hover:border-b-primary px-3 py-2 text-sm font-medium">
                       Login
-                    </div>
-                  </Link>
-                  <Link href="/register" onClick={openModalHandler}>
-                    <div className="text-accent-content hover:text-base-content border-b-2 border-b-transparent hover:border-b-primary px-3 py-2 text-sm font-medium">
-                      Register
                     </div>
                   </Link>
                 </>
@@ -58,7 +49,7 @@ const Navbar = ({ themeHandler, theme }) => {
                     dispatch(logout());
                   }}
                 >
-                  <div className="text-accent-content hover:bg-gray-700 hover:text-base-content px-3 py-2 rounded-md text-sm font-medium">
+                  <div className="text-accent-content hover:text-base-content border-b-2 border-b-transparent hover:border-b-primary px-3 py-2 text-sm font-medium">
                     Logout
                   </div>
                 </Link>
@@ -76,7 +67,7 @@ const Navbar = ({ themeHandler, theme }) => {
           <div className="md:hidden">
             <button
               type="button"
-              className="text-gray-400 hover:text-white focus:outline-none focus:text-white"
+              className="text-cotent inline-flex items-center justify-center p-2 rounded-md text-accent-content focus:outline-none"
               onClick={toggleMenu}
             >
               <svg
@@ -102,21 +93,16 @@ const Navbar = ({ themeHandler, theme }) => {
           </div>
         </div>
         {isMenuOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <div className="md:hidden ">
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col items-center">
               <Link href="/decks">
-                <div className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                <div className="text-accent-content px-3 py-2 rounded-md text-base font-medium">
                   Decks
                 </div>
               </Link>
               <Link href="/login">
-                <div className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                <div className="text-accent-content px-3 py-2 rounded-md text-base font-medium">
                   Login
-                </div>
-              </Link>
-              <Link href="/register">
-                <div className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-                  Register
                 </div>
               </Link>
             </div>
