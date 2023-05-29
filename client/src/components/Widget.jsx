@@ -8,7 +8,7 @@ function WidgetDrawer() {
     <>
       <div
         id="drawer-bottom-example"
-        className="fixed bottom-0 left-0 right-0 z-40 w-full overflow-y-auto transition-transform bg-white dark:bg-gray-800 transform-none border-t-2 dark:border-gray-700 md:hidden"
+        className="fixed bottom-0 left-0 right-0 z-40 w-full overflow-y-auto transition-transform bg-base-100 dark:bg-gray-800 transform-none border-t-2 dark:border-gray-700 md:hidden"
         tabIndex="-1"
         aria-labelledby="drawer-bottom-label"
       >
