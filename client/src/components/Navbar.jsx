@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, use } from "react";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../app/redux/features/auth/authSlice";
@@ -16,24 +16,20 @@ const Navbar = ({ themeHandler, theme }) => {
   };
 
   const user = useSelector((state) => state.auth.user);
-  console.log(user);
 
   const menuRef = useRef(null);
 
   useEffect(() => {
-    // Function to handle the click event
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setIsMenuOpen(false);
-      }
+    const handleClick = () => {
+      setIsMenuOpen(false);
     };
 
     // Add the event listener
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener("click", handleClick);
 
     // Cleanup the event listener on component unmount
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("click", handleClick);
     };
   }, [isMenuOpen]);
 
@@ -75,7 +71,10 @@ const Navbar = ({ themeHandler, theme }) => {
                   </div>
                 </Link>
               )}
-              <a onClick={() => themeHandler()} className="hover:cursor-pointer">
+              <a
+                onClick={() => themeHandler()}
+                className="hover:cursor-pointer"
+              >
                 <div className="flex items-center text-accent-content hover:text-primary px-3 py-2 text-sm font-medium  relative top-1">
                   {theme === "light" ? <Sun /> : <Moon />}
                 </div>
