@@ -15,9 +15,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
+        <div id="portal" />
         <Providers>
-
           <Navbar />
+          {/* <div className="divider my-1 mx-24"></div> */}
           {children}
         </Providers>
       </body>

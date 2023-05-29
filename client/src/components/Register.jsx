@@ -1,15 +1,15 @@
-'use client'
-import React, { useState } from 'react';
+"use client";
+import React, { useState } from "react";
 
 const Register = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [profileImg, setProfileImg] = useState('');
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [profileImg, setProfileImg] = useState("");
 
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -22,32 +22,31 @@ const Register = () => {
       profileImg,
     };
 
-    const API_URL = 'http://localhost:3001';
+    const API_URL = "http://localhost:3001";
 
     fetch(`${API_URL}/auth/register`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(user),
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.message === 'User registered successfully') {
-          setMessage('');
-          window.location.href = '/login';
+        if (data.message === "User registered successfully") {
+          setMessage("");
+          window.location.href = "/login";
         } else {
-          setMessage('Username and email must be unique');
-          setFirstName('');
-          setLastName('');
-          setPassword('');
-          setProfileImg('');
-          setEmail('');
-          setUsername('');
+          setMessage("Username and email must be unique");
+          setFirstName("");
+          setLastName("");
+          setPassword("");
+          setProfileImg("");
+          setEmail("");
+          setUsername("");
         }
-      }
-      );
+      });
   };
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center h-1/2 p-10">
       <h2 className="text-2xl font-bold mb-4">Register Page</h2>
       <div className="w-64">
         <input
@@ -87,7 +86,7 @@ const Register = () => {
         />
         {/* Upload profile image */}
         <input
-          type='file'
+          type="file"
           placeholder="Profile Image URL"
           value={profileImg}
           onChange={(e) => setProfileImg(e.target.value)}

@@ -1,43 +1,53 @@
-'use client';
-import { useState } from 'react';
-import Link from 'next/link';
-import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../app/redux/features/auth/authSlice';
-
+"use client";
+import { useState } from "react";
+import Link from "next/link";
+import { useSelector, useDispatch } from "react-redux";
+import { openModal } from "../app/redux/features/modal/modalSlice";
+import { logout } from "../app/redux/features/auth/authSlice";
+import LoginPage from "./Login";
 const Navbar = () => {
+  const dispatch = useDispatch();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
+  const openModalHandler = () => {
+    dispatch(openModal());
+  };
   const user = useSelector((state) => state.auth.user);
   console.log(user);
-  const dispatch = useDispatch();
 
   return (
-    <nav className="bg-primary">
+    <nav className=" bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link href="/">
-              <div className="text-white font-bold text-xl">Cardify</div>
+              <div className="text-primary font-bold text-xl">Cardify</div>
             </Link>
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
               <Link href="/decks">
-                <div className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Decks</div>
+                <div className="text-gray-300 hover:text-white border-b-2 border-b-transparent hover:border-b-primary px-3 py-2 text-sm font-medium">
+                  Decks
+                </div>
               </Link>
 
               {/* Check if user is  logged in from redux store */}
               {!user ? (
                 <>
-                  <Link href="/login">
-                    <div className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Login</div>
+                  <Link href="/login" onClick={openModalHandler}>
+                    <div className="text-gray-300 hover:text-white border-b-2 border-b-transparent hover:border-b-primary px-3 py-2 text-sm font-medium">
+                      Login
+                    </div>
                   </Link>
-                  <Link href="/register">
-                    <div className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Register</div>
+                  <Link href="/register" onClick={openModalHandler}>
+                    <div className="text-gray-300 hover:text-white border-b-2 border-b-transparent hover:border-b-primary px-3 py-2 text-sm font-medium">
+                      Register
+                    </div>
                   </Link>
                 </>
               ) : (
@@ -47,13 +57,11 @@ const Navbar = () => {
                     dispatch(logout());
                   }}
                 >
-                  <div className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Logout</div>
+                  <div className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                    Logout
+                  </div>
                 </Link>
               )}
-
-
-
-
             </div>
           </div>
           <div className="md:hidden">
@@ -88,13 +96,19 @@ const Navbar = () => {
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               <Link href="/decks">
-                <div className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Decks</div>
+                <div className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                  Decks
+                </div>
               </Link>
               <Link href="/login">
-                <div className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Login</div>
+                <div className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                  Login
+                </div>
               </Link>
               <Link href="/register">
-                <div className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Register</div>
+                <div className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                  Register
+                </div>
               </Link>
             </div>
           </div>
