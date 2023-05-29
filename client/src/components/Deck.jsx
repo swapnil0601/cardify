@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import scienceImg from "../assets/images/science.jpg";
+import scienceImg from "../public/Images/science.jpg";
 import Image from "next/image";
 export default function Deck() {
   return (
