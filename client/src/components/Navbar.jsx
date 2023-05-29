@@ -4,8 +4,9 @@ import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { openModal } from "../app/redux/features/modal/modalSlice";
 import { logout } from "../app/redux/features/auth/authSlice";
-import LoginPage from "./Login";
-const Navbar = () => {
+import { Sun, Moon } from "react-feather";
+
+const Navbar = ({ themeHandler, theme }) => {
   const dispatch = useDispatch();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,13 +26,13 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link href="/">
-              <div className="text-primary font-bold text-xl">Cardify</div>
+              <div className="text-accent font-bold text-xl">Cardify</div>
             </Link>
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
               <Link href="/decks">
-                <div className="text-gray-300 hover:text-white border-b-2 border-b-transparent hover:border-b-primary px-3 py-2 text-sm font-medium">
+                <div className="text-accent-content hover:text-base-content border-b-2 border-b-transparent hover:border-b-primary px-3 py-2 text-sm font-medium">
                   Decks
                 </div>
               </Link>
@@ -40,12 +41,12 @@ const Navbar = () => {
               {!user ? (
                 <>
                   <Link href="/login" onClick={openModalHandler}>
-                    <div className="text-gray-300 hover:text-white border-b-2 border-b-transparent hover:border-b-primary px-3 py-2 text-sm font-medium">
+                    <div className="text-accent-content hover:text-base-content border-b-2 border-b-transparent hover:border-b-primary px-3 py-2 text-sm font-medium">
                       Login
                     </div>
                   </Link>
                   <Link href="/register" onClick={openModalHandler}>
-                    <div className="text-gray-300 hover:text-white border-b-2 border-b-transparent hover:border-b-primary px-3 py-2 text-sm font-medium">
+                    <div className="text-accent-content hover:text-base-content border-b-2 border-b-transparent hover:border-b-primary px-3 py-2 text-sm font-medium">
                       Register
                     </div>
                   </Link>
@@ -57,11 +58,19 @@ const Navbar = () => {
                     dispatch(logout());
                   }}
                 >
-                  <div className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                  <div className="text-accent-content hover:bg-gray-700 hover:text-base-content px-3 py-2 rounded-md text-sm font-medium">
                     Logout
                   </div>
                 </Link>
               )}
+              <a
+                onClick={() => themeHandler()}
+                className="hover:cursor-pointer"
+              >
+                <div className="flex items-center text-accent-content hover:text-primary px-3 py-2 text-sm font-medium  relative top-1">
+                  {theme === "light" ? <Sun /> : <Moon />}
+                </div>
+              </a>
             </div>
           </div>
           <div className="md:hidden">

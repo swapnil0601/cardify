@@ -1,9 +1,9 @@
+"use client";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Navbar from "../components/Navbar";
-
 import { Providers } from "./redux/provider";
-
+import { useState } from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -12,13 +12,17 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const [theme, setTheme] = useState("light");
+  const usedTheme = theme === "light" ? "light" : "dark";
+  const themeHandler = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
   return (
-    <html lang="en">
+    <html lang="en" data-theme={usedTheme}>
       <body className={inter.className}>
         <div id="portal" />
         <Providers>
-          <Navbar />
-          {/* <div className="divider my-1 mx-24"></div> */}
+          <Navbar themeHandler={themeHandler} theme={theme} />
           {children}
         </Providers>
       </body>
