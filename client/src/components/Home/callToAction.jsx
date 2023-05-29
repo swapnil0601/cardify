@@ -6,8 +6,11 @@ const CallToAction = () => {
   const navbarHeight = 64;
   return (
     <section
-      className="flex items-center justify-center bg-base-100 text-base-content py-16"
-      style={{ paddingTop: `calc(40vh - ${navbarHeight}px)` }}
+      className="flex items-center justify-center bg-base-100 text-base-content"
+      style={{
+        paddingTop: `calc(40vh - ${navbarHeight}px)`,
+        paddingBottom: `calc(40vh - ${navbarHeight}px)`,
+      }}
     >
       <div className="container mx-auto px-4 text-center justify-center">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8">
