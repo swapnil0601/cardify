@@ -17,7 +17,9 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <div id="portal" />
         <Providers>
-          <Navbar />
+          <div className="shadow-md">
+            <Navbar />
+          </div>
           {/* <div className="divider my-1 mx-24"></div> */}
           {children}
         </Providers>

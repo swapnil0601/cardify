@@ -4,23 +4,22 @@ import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { openModal } from "../app/redux/features/modal/modalSlice";
 import { logout } from "../app/redux/features/auth/authSlice";
-import LoginPage from "./Login";
+
 const Navbar = () => {
   const dispatch = useDispatch();
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const user = useSelector((state) => state.auth.user);
+
   const openModalHandler = () => {
     dispatch(openModal());
   };
-  const user = useSelector((state) => state.auth.user);
-  console.log(user);
 
   return (
-    <nav className=" bg-background">
+    <nav className="bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
@@ -31,33 +30,30 @@ const Navbar = () => {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
               <Link href="/decks">
-                <div className="text-gray-300 hover:text-white border-b-2 border-b-transparent hover:border-b-primary px-3 py-2 text-sm font-medium">
+                <div className="text-secondary hover:text-primary cursor-pointer">
                   Decks
                 </div>
               </Link>
-
-              {/* Check if user is  logged in from redux store */}
               {!user ? (
                 <>
                   <Link href="/login" onClick={openModalHandler}>
-                    <div className="text-gray-300 hover:text-white border-b-2 border-b-transparent hover:border-b-primary px-3 py-2 text-sm font-medium">
+                    <div className="text-secondary hover:text-primary cursor-pointer">
                       Login
                     </div>
                   </Link>
                   <Link href="/register" onClick={openModalHandler}>
-                    <div className="text-gray-300 hover:text-white border-b-2 border-b-transparent hover:border-b-primary px-3 py-2 text-sm font-medium">
+                    <div className="text-secondary hover:text-primary cursor-pointer">
                       Register
                     </div>
                   </Link>
                 </>
               ) : (
-                <Link
-                  href="/"
-                  onClick={() => {
-                    dispatch(logout());
-                  }}
-                >
-                  <div className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                <Link href="/">
+                  <div
+                    onClick={() => {
+                      dispatch(logout());
+                    }}
+                  >
                     Logout
                   </div>
                 </Link>
@@ -67,7 +63,7 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               type="button"
-              className="text-gray-400 hover:text-white focus:outline-none focus:text-white"
+              className="bg-background inline-flex items-center justify-center p-2 rounded-md text-secondary hover:text-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:ring-white"
               onClick={toggleMenu}
             >
               <svg
@@ -92,24 +88,73 @@ const Navbar = () => {
             </button>
           </div>
         </div>
-        {isMenuOpen && (
+        {/* {isMenuOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <div className="pt-2 pb-3 space-y-1 sm:px-3 flex flex-col align-middle justify-center items-center">
               <Link href="/decks">
-                <div className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                <div className="text-secondary hover:text-primary cursor-pointer">
                   Decks
                 </div>
               </Link>
-              <Link href="/login">
-                <div className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-                  Login
+              {!user ? (
+                <>
+                  <Link href="/login" onClick={openModalHandler}>
+                    <div className="text-secondary hover:text-primary cursor-pointer">
+                      Login
+                    </div>
+                  </Link>
+                  <Link href="/register" onClick={openModalHandler}>
+                    <div className="text-secondary hover:text-primary cursor-pointer">
+                      Register
+                    </div>
+                  </Link>
+                </>
+              ) : (
+                <Link href="/">
+                  <div
+                    onClick={() => {
+                      dispatch(logout());
+                    }}
+                  >
+                    Logout
+                  </div>
+                </Link>
+              )}
+            </div>
+          </div>
+        )} */}
+        {isMenuOpen && (
+          <div className="md:hidden transition-transform duration-300 ease-in-out">
+            <div className="pt-2 pb-3 space-y-1 sm:px-3 flex flex-col align-middle justify-center items-center">
+              <Link href="/decks">
+                <div className="text-secondary hover:text-primary cursor-pointer">
+                  Decks
                 </div>
               </Link>
-              <Link href="/register">
-                <div className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-                  Register
-                </div>
-              </Link>
+              {!user ? (
+                <>
+                  <Link href="/login" onClick={openModalHandler}>
+                    <div className="text-secondary hover:text-primary cursor-pointer">
+                      Login
+                    </div>
+                  </Link>
+                  <Link href="/register" onClick={openModalHandler}>
+                    <div className="text-secondary hover:text-primary cursor-pointer">
+                      Register
+                    </div>
+                  </Link>
+                </>
+              ) : (
+                <Link href="/">
+                  <div
+                    onClick={() => {
+                      dispatch(logout());
+                    }}
+                  >
+                    Logout
+                  </div>
+                </Link>
+              )}
             </div>
           </div>
         )}
