@@ -1,9 +1,7 @@
 "use client";
 import React from "react";
 
-
 function WidgetDrawer() {
-
   return (
     <>
       <div
@@ -15,7 +13,7 @@ function WidgetDrawer() {
         <div className="space-y-1 sm:px-3 flex flex-col items-center ">
           <div
             className="cursor-pointer pt-3 border-b-2"
-            onClick={() => window.location.href = "/decks"}
+            onClick={() => (window.location.href = "/decks")}
           >
             <div className="text-accent-content px-3 py-2 rounded-md text-base font-medium">
               Decks
@@ -23,7 +21,7 @@ function WidgetDrawer() {
           </div>
           <div
             className="cursor-pointer pb-3"
-            onClick={() => window.location.href = "/login"}
+            onClick={() => (window.location.href = "/login")}
           >
             <div className="text-accent-content px-3 py-2 rounded-md text-base font-medium">
               Login

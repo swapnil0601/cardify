@@ -81,10 +81,18 @@ const Navbar = ({ themeHandler, theme }) => {
               </a>
             </div>
           </div>
-          <div className="md:hidden">
+          <div className="md:hidden flex justify-center items-center">
+            <a
+              onClick={() => themeHandler()}
+              className="hover:cursor-pointer "
+            >
+              <div className="flex items-center text-accent-content hover:text-primary px-3 font-medium ">
+                {theme === "light" ? <Sun /> : <Moon />}
+              </div>
+            </a>
             <button
               type="button"
-              className="text-content inline-flex items-center justify-center p-2 rounded-md text-accent-content focus:outline-none"
+              className="text-content inline-flex items-center justify-center p-2 rounded-md text-accent-content focus:outline-none scale-110"
               onClick={toggleMenu}
             >
               <svg
@@ -111,7 +119,7 @@ const Navbar = ({ themeHandler, theme }) => {
         </div>
         {isMenuOpen && (
           <div ref={menuRef}>
-            <WidgetDrawer />
+            <WidgetDrawer themeHandler={themeHandler} theme={theme} />
           </div>
         )}
       </div>
