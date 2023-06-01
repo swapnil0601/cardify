@@ -4,7 +4,7 @@ import FeatureCard from "../featureCard";
 
 const FeaturesSection = () => {
   return (
-    <section className="bg-gray-100 py-16 lg:mx-10 lg:my-20 rounded my-5">
+    <section className="bg-base-100 py-16 lg:mx-10 lg:my-20 rounded my-5">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-8">
           Our Features
