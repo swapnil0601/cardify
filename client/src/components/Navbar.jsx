@@ -1,9 +1,10 @@
 "use client";
-import { useState } from "react";
+import React, { useState, useEffect, useRef, use } from "react";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../app/redux/features/auth/authSlice";
 import { Sun, Moon } from "react-feather";
+import WidgetDrawer from "./Widget";
 
 const Navbar = ({ themeHandler, theme }) => {
   const dispatch = useDispatch();
@@ -13,11 +14,27 @@ const Navbar = ({ themeHandler, theme }) => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
   const user = useSelector((state) => state.auth.user);
-  console.log(user);
+
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    const handleClick = () => {
+      setIsMenuOpen(false);
+    };
+
+    // Add the event listener
+    document.addEventListener("click", handleClick);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, [isMenuOpen]);
 
   return (
-    <nav className=" bg-background">
+    <nav className="bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
@@ -38,7 +55,7 @@ const Navbar = ({ themeHandler, theme }) => {
                 </div>
               </Link>
 
-              {/* Check if user is  logged in from redux store */}
+              {/* Check if user is logged in from redux store */}
               {!user ? (
                 <>
                   <Link href="/login">
@@ -69,10 +86,18 @@ const Navbar = ({ themeHandler, theme }) => {
               </a>
             </div>
           </div>
-          <div className="md:hidden">
+          <div className="md:hidden flex justify-center items-center">
+            <a
+              onClick={() => themeHandler()}
+              className="hover:cursor-pointer "
+            >
+              <div className="flex items-center text-accent-content hover:text-primary px-3 font-medium ">
+                {theme === "light" ? <Sun /> : <Moon />}
+              </div>
+            </a>
             <button
               type="button"
-              className="text-cotent inline-flex items-center justify-center p-2 rounded-md text-accent-content focus:outline-none"
+              className="text-content inline-flex items-center justify-center p-2 rounded-md text-accent-content focus:outline-none scale-110"
               onClick={toggleMenu}
             >
               <svg
@@ -98,19 +123,8 @@ const Navbar = ({ themeHandler, theme }) => {
           </div>
         </div>
         {isMenuOpen && (
-          <div className="md:hidden ">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col items-center">
-              <Link href="/decks">
-                <div className="text-accent-content px-3 py-2 rounded-md text-base font-medium">
-                  Decks
-                </div>
-              </Link>
-              <Link href="/login">
-                <div className="text-accent-content px-3 py-2 rounded-md text-base font-medium">
-                  Login
-                </div>
-              </Link>
-            </div>
+          <div ref={menuRef}>
+            <WidgetDrawer themeHandler={themeHandler} theme={theme} />
           </div>
         )}
       </div>
