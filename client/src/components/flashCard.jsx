@@ -1,42 +1,18 @@
-import React, { useState } from "react";
-import "../../styles/component.css";
-import GroupButton from "../components/Common/groupButton";
-const FlippableCard = ({ frontTitle, frontDesc, backTitle, backDesc }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
+import React from "react";
 
-  const handleFlip = () => {
-    setIsFlipped(!isFlipped);
-  };
-
+export default function FlashCard({}) {
   return (
-    <div className="flippable-card" onClick={handleFlip}>
-      <div className={`card ${isFlipped ? "flipped" : ""}`}>
-        <div className="card-front">
-          <div className="p-6 bg-base-200 border border-base-300 rounded-lg shadow hover:bg-base-300 hover:shadow-base-200 hover:shadow-lg">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-base-content">
-              {frontTitle}
-            </h5>
-            <p className="font-normal text-base-content">{frontDesc}</p>
-          </div>
-        </div>
-
-        <div className="card-back">
-          <div className="p-6 bg-base-content border border-base-300 rounded-lg shadow hover:shadow-base-content hover:shadow-lg">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-base-100">
-              {backTitle}
-            </h5>
-            <p className="font-normal text-base-100">{backDesc}</p>
-          </div>
-          <div class="flex rounded-md shadow-sm w-auto">
-            <GroupButton name="Easy" />
-            <GroupButton name="Medium" />
-            <GroupButton name="Hard" />
-            <GroupButton name="Again" />
-          </div>
-        </div>
-      </div>
-    </div>
+    <a
+      href="#"
+      class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+    >
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        Noteworthy technology acquisitions 2021
+      </h5>
+      <p class="font-normal text-gray-700 dark:text-gray-400">
+        Here are the biggest enterprise technology acquisitions of 2021 so far,
+        in reverse chronological order.
+      </p>
+    </a>
   );
-};
-
-export default FlippableCard;
+}

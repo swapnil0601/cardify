@@ -1,48 +1,21 @@
 "use client";
+import Adder from "@/components/Adder";
+import BreadCrumbs from "@/components/Common/BreadCrumbs";
+import FlashCard from "@/components/FlashCard";
+import React, { useState } from "react";
 
-import React from "react";
-import FlippableCard from "../../components/flashCard";
-const FLASHCARD_DATA = [
-  {
-    id: 1,
-    frontTitle: "Question 1",
-    frontDesc: "What is the capital of France?",
-    backTitle: "Solution 1",
-    backDesc: "The capital of France is Paris.",
-  },
-  // {
-  //   id: 2,
-  //   frontTitle: "Question 2",
-  //   frontDesc: "Who painted the Mona Lisa?",
-  //   backTitle: "Solution 2",
-  //   backDesc: "The Mona Lisa was painted by Leonardo da Vinci.",
-  // },
-  // {
-  //   id: 3,
-  //   frontTitle: "Question 3",
-  //   frontDesc: "What is the formula for calculating the area of a circle?",
-  //   backTitle: "Solution 3",
-  //   backDesc:
-  //     "The formula for calculating the area of a circle is A = πr^2, where A represents the area and r represents the radius.",
-  // },
-];
-const FlashCardPage = () => {
+export default function FlashCardPage() {
   return (
-    <div
-      className="flex justify-center h-screen"
-      style={{ alignItems: "center" }}
-    >
-      {FLASHCARD_DATA.map((flashcard) => (
-        <FlippableCard
-          key={flashcard.id}
-          frontTitle={flashcard.frontTitle}
-          frontDesc={flashcard.frontDesc}
-          backTitle={flashcard.backTitle}
-          backDesc={flashcard.backDesc}
-        />
-      ))}
+    <div className="max-w-7xl mx-auto p-4 sm:px-6 lg:px-8">
+      <BreadCrumbs />
+      <div className="mt-10 container flex justify-center align-middle h-auto flex-wrap p-2 gap-5">
+        <FlashCard />
+        <FlashCard />
+        <FlashCard />
+        <FlashCard />
+        <FlashCard />
+        <Adder type="FlashCard" />
+      </div>
     </div>
   );
-};
-
-export default FlashCardPage;
+}
