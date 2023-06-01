@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../../styles/component.css";
+import GroupButton from "../components/Common/groupButton";
 const FlippableCard = ({ frontTitle, frontDesc, backTitle, backDesc }) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -25,6 +26,12 @@ const FlippableCard = ({ frontTitle, frontDesc, backTitle, backDesc }) => {
               {backTitle}
             </h5>
             <p className="font-normal text-base-100">{backDesc}</p>
+          </div>
+          <div class="flex rounded-md shadow-sm w-auto">
+            <GroupButton name="Easy" />
+            <GroupButton name="Medium" />
+            <GroupButton name="Hard" />
+            <GroupButton name="Again" />
           </div>
         </div>
       </div>

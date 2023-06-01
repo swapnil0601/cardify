@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import Navbar from "../components/Navbar";
 import { Providers } from "./redux/provider";
 import { useState } from "react";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -16,7 +17,6 @@ export default function RootLayout({ children }) {
 
   const usedTheme = localStorage.getItem("theme") || "light";
 
-  
   const themeHandler = () => {
     // Save theme in local storage
     if (theme === "light") {
@@ -33,10 +33,10 @@ export default function RootLayout({ children }) {
     <html lang="en" data-theme={usedTheme}>
       <body className={inter.className}>
         <Providers>
-          <div className="sticky top-0 z-50 bg-base-100 shadow-md"> 
+          <div className="sticky top-0 z-50 bg-base-100 shadow-md">
             <Navbar themeHandler={themeHandler} theme={theme} />
           </div>
-          {children}
+          <div>{children}</div>
         </Providers>
       </body>
     </html>

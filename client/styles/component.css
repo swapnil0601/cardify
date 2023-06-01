@@ -5,8 +5,9 @@
 }
 
 .card {
-  width: 300px;
-  height: 200px;
+  min-width: 500px;
+  width: 33vw;
+  height: 300px;
   transition: transform 0.6s;
   transform-style: preserve-3d;
 }
