@@ -54,11 +54,14 @@ export default function deckPage() {
     <div className="max-w-7xl mx-auto p-4 sm:px-6 lg:px-8">
       <BreadCrumbs />
       <div className="mt-10 container flex justify-center align-middle h-auto flex-wrap p-2 gap-5 ">
-        <Deck />
-        <Deck />
-        <Deck />
-        <Deck />
-        <Deck />
+        {decks.map((deck) => (
+          <Deck
+            key={deck._id}
+            name={deck.name}
+            description={deck.description}
+            deckId={deck._id}
+          />
+        ))}
         <Adder type="Deck" />
       </div>
     </div>
