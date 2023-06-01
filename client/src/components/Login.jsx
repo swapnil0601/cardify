@@ -2,7 +2,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../app/redux/features/auth/authSlice";
-
+import Image from "next/image";
+const navbarHeight = 64;
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -49,54 +50,62 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center ">
-      <div className="text-accent text-2xl font-bold mb-4">Login</div>
-      <form className="w-64" onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="email" className="text-lg">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            className="border border-gray-300 rounded px-3 py-2 w-full"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="password" className="text-lg">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            className="border border-gray-300 rounded px-3 py-2 w-full"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Login
-        </button>
-      </form>
-      {/* If login fails, display an error message */}
-
-      {message && <p className="text-red-500 mt-4">{message}</p>}
-
-      <div className="flex flex-col items-center justify-center">
-        <div className="mt-4 text-xs md:text-base w-full text-center">
-          <div className="flex flex-col items-center sm:flex-row sm:justify-center">
-            <span className="whitespace-nowrap">Don't have an account ?
-            </span>
-            <a href="/register" className="text-blue-500 hover:text-blue-700">
-              Register
-            </a>
+    <div class="w-3/4 bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+      <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+        <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+          Sign in to your account
+        </h1>
+        <form class="space-y-4 md:space-y-6" action="#" onSubmit={handleSubmit}>
+          <div>
+            <label
+              for="email"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Your email
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="name@company.com"
+              required=""
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
-        </div>
+          <div>
+            <label
+              for="password"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="••••••••"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              required=""
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-accent hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+          >
+            Sign In
+          </button>
+          <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+            Don’t have an account yet?{" "}
+            <a
+              href="/register"
+              class="font-medium text-primary-600 hover:underline dark:text-primary-500"
+            >
+              Sign Up
+            </a>
+          </p>
+        </form>
       </div>
     </div>
   );
