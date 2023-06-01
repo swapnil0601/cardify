@@ -1,7 +1,15 @@
 "use client";
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../app/redux/features/auth/authSlice";
+
 
 function WidgetDrawer() {
+
+  const dispatch = useDispatch();
+
+  const isLogin = useSelector((state) => state.auth.user) || false;
+
   return (
     <>
       <div
@@ -19,14 +27,29 @@ function WidgetDrawer() {
               Decks
             </div>
           </div>
-          <div
-            className="cursor-pointer pb-3"
-            onClick={() => (window.location.href = "/login")}
-          >
-            <div className="text-accent-content px-3 py-2 rounded-md text-base font-medium">
-              Login
+
+          {isLogin ? (
+            <div
+              className="cursor-pointer pb-3"
+              onClick={() => {
+                dispatch(logout());
+                window.location.href = "/";
+              }}
+            >
+              <div className="text-accent-content px-3 py-2 rounded-md text-base font-medium">
+                Logout
+              </div>
             </div>
-          </div>
+          ) : (
+            <div
+              className="cursor-pointer pb-3"
+              onClick={() => (window.location.href = "/login")}
+            >
+              <div className="text-accent-content px-3 py-2 rounded-md text-base font-medium">
+                Login
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>

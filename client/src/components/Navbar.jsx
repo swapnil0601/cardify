@@ -3,10 +3,9 @@ import React, { useState, useEffect, useRef, use } from "react";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../app/redux/features/auth/authSlice";
-import { Sun, Moon } from "react-feather";
 import WidgetDrawer from "./Widget";
 
-const Navbar = ({ themeHandler, theme }) => {
+const Navbar = () => {
   const dispatch = useDispatch();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -76,25 +75,10 @@ const Navbar = ({ themeHandler, theme }) => {
                   </div>
                 </Link>
               )}
-              <a
-                onClick={() => themeHandler()}
-                className="hover:cursor-pointer"
-              >
-                <div className="flex items-center text-accent-content hover:text-primary px-3 py-2 text-sm font-medium  relative top-1">
-                  {theme === "light" ? <Sun /> : <Moon />}
-                </div>
-              </a>
             </div>
           </div>
           <div className="md:hidden flex justify-center items-center">
-            <a
-              onClick={() => themeHandler()}
-              className="hover:cursor-pointer "
-            >
-              <div className="flex items-center text-accent-content hover:text-primary px-3 font-medium ">
-                {theme === "light" ? <Sun /> : <Moon />}
-              </div>
-            </a>
+
             <button
               type="button"
               className="text-content inline-flex items-center justify-center p-2 rounded-md text-accent-content focus:outline-none scale-110"
@@ -124,7 +108,7 @@ const Navbar = ({ themeHandler, theme }) => {
         </div>
         {isMenuOpen && (
           <div ref={menuRef}>
-            <WidgetDrawer themeHandler={themeHandler} theme={theme} />
+            <WidgetDrawer />
           </div>
         )}
       </div>
