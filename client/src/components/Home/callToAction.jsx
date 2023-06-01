@@ -21,7 +21,12 @@ const CallToAction = () => {
           option below.
         </p>
         <div className="flex flex-col md:flex-row gap-4 justify-center">
-          <button className="btn btn-primary">Sign Up</button>
+          <button
+            className="btn btn-primary"
+            onClick={() => (window.location.href = "/register")}
+          >
+            Sign Up
+          </button>
           <button className="btn btn-outline-primary">Learn More</button>
         </div>
       </div>

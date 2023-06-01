@@ -30,9 +30,15 @@ const LoginPage = () => {
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", data.token);
           setMessage("");
-          handleLogin();
+
+          const user = JSON.parse(localStorage.getItem("user"));
+          const token = localStorage.getItem("token");
+
+          // Dispatch action to set user data in store
+          dispatch(loginSuccess({ user, token }));
+
           // Redirect to home page
-          window.location.href = "/";
+          // window.location.href = "/";
         } else {
           // If there were errors, display them
           setMessage(data.message);
@@ -41,12 +47,6 @@ const LoginPage = () => {
 
     setEmail("");
     setPassword("");
-  };
-
-  const handleLogin = () => {
-    const user = localStorage.getItem("user");
-    const token = localStorage.getItem("token");
-    dispatch(loginSuccess({ user, token }));
   };
 
   return (
