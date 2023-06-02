@@ -2,9 +2,15 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../app/redux/features/auth/authSlice";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 const navbarHeight = 64;
+
+
 const LoginPage = () => {
+
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -38,7 +44,7 @@ const LoginPage = () => {
           dispatch(loginSuccess({ user, token }));
 
           // Redirect to home page
-          // window.location.href = "/";
+          router.push("/");
         } else {
           // If there were errors, display them
           setMessage(data.message);

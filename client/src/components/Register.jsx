@@ -1,7 +1,11 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Register = () => {
+
+  const router = useRouter();
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
@@ -33,7 +37,7 @@ const Register = () => {
       .then((data) => {
         if (data.message === "User registered successfully") {
           setMessage("");
-          window.location.href = "/login";
+          router.push("/login");
         } else {
           setMessage("Username and email must be unique");
           setFirstName("");

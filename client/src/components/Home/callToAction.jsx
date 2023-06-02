@@ -1,9 +1,15 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 
 const CallToAction = () => {
+  const router = useRouter();
   const navbarHeight = 64;
+
+  const isLogin = useSelector((state) => state.auth.user) || false;
+
   return (
     <section
       className="flex items-center justify-center bg-base-100 text-base-content"
@@ -20,13 +26,16 @@ const CallToAction = () => {
           We provide high-quality services to meet your needs. Choose the best
           option below.
         </p>
+
         <div className="flex flex-col md:flex-row gap-4 justify-center">
-          <button
-            className="btn btn-primary"
-            onClick={() => (window.location.href = "/register")}
-          >
-            Sign Up
-          </button>
+          {!isLogin && (
+            <button
+              className="btn btn-primary"
+              onClick={() => router.push("/register")}
+            >
+              Sign Up
+            </button>
+          )}
           <button className="btn btn-outline-primary">Learn More</button>
         </div>
       </div>

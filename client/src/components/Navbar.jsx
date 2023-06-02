@@ -43,17 +43,6 @@ const Navbar = () => {
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
-              <Link href="/decks">
-                <div className="text-accent-content hover:text-base-content border-b-2 border-b-transparent hover:border-b-primary px-3 py-2 text-sm font-medium">
-                  Decks
-                </div>
-              </Link>
-              <Link href="/flashcards">
-                <div className="text-accent-content hover:text-base-content border-b-2 border-b-transparent hover:border-b-primary px-3 py-2 text-sm font-medium">
-                  FlashCards
-                </div>
-              </Link>
-
               {/* Check if user is logged in from redux store */}
               {!user ? (
                 <>
@@ -64,21 +53,33 @@ const Navbar = () => {
                   </Link>
                 </>
               ) : (
-                <Link
-                  href="/"
-                  onClick={() => {
-                    dispatch(logout());
-                  }}
-                >
-                  <div className="text-accent-content hover:text-base-content border-b-2 border-b-transparent hover:border-b-primary px-3 py-2 text-sm font-medium">
-                    Logout
-                  </div>
-                </Link>
+                <>
+                  <Link href="/decks">
+                    <div className="text-accent-content hover:text-base-content border-b-2 border-b-transparent hover:border-b-primary px-3 py-2 text-sm font-medium">
+                      Decks
+                    </div>
+                  </Link>
+                  <Link href="/flashcards">
+                    <div className="text-accent-content hover:text-base-content border-b-2 border-b-transparent hover:border-b-primary px-3 py-2 text-sm font-medium">
+                      FlashCards
+                    </div>
+                  </Link>
+
+                  <Link
+                    href="/"
+                    onClick={() => {
+                      dispatch(logout());
+                    }}
+                  >
+                    <div className="text-accent-content hover:text-base-content border-b-2 border-b-transparent hover:border-b-primary px-3 py-2 text-sm font-medium">
+                      Logout
+                    </div>
+                  </Link>
+                </>
               )}
             </div>
           </div>
           <div className="md:hidden flex justify-center items-center">
-
             <button
               type="button"
               className="text-content inline-flex items-center justify-center p-2 rounded-md text-accent-content focus:outline-none scale-110"
