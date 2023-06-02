@@ -3,8 +3,10 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../app/redux/features/auth/authSlice";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 const navbarHeight = 64;
 const LoginPage = () => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -98,12 +100,12 @@ const LoginPage = () => {
           </button>
           <p class="text-sm font-light text-gray-500 dark:text-gray-400">
             Don’t have an account yet?{" "}
-            <a
-              href="/register"
+            <button
+              onClick={() => router.push("/register")}
               class="font-medium text-primary-600 hover:underline dark:text-primary-500"
             >
               Sign Up
-            </a>
+            </button>
           </p>
         </form>
       </div>

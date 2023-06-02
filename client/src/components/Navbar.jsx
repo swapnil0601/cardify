@@ -4,10 +4,11 @@ import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../app/redux/features/auth/authSlice";
 import WidgetDrawer from "./Widget";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -78,7 +79,6 @@ const Navbar = () => {
             </div>
           </div>
           <div className="md:hidden flex justify-center items-center">
-
             <button
               type="button"
               className="text-content inline-flex items-center justify-center p-2 rounded-md text-accent-content focus:outline-none scale-110"

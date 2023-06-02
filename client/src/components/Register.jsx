@@ -1,7 +1,9 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const Register = () => {
+  const router = useRouter();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
@@ -165,12 +167,12 @@ const Register = () => {
           </button>
           <p class="text-sm font-light text-gray-500 dark:text-gray-400">
             Already have an account?{" "}
-            <a
-              href="/login"
+            <button
+              onClick={() => router.push("/login")}
               class="font-medium text-primary-600 hover:underline dark:text-primary-500"
             >
               Login Here
-            </a>
+            </button>
           </p>
         </form>
       </div>
