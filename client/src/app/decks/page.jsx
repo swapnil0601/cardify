@@ -20,6 +20,7 @@ export default function deckPage() {
   }, [user]);
 
   const [decks, setDecks] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,9 +35,14 @@ export default function deckPage() {
       setDecks(json);
     };
     fetchData();
+    setTimeout(() => {
+      setLoading(false);
+    }
+      , 500);
+    
   }, []);
 
-  if (!user) {
+  if (!user || loading) {
     return <Loading />;
   }
 

@@ -10,6 +10,7 @@ const page = ({ params }) => {
   const { slug } = params;
 
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const user = useSelector(selectUser);
 
@@ -30,6 +31,9 @@ const page = ({ params }) => {
       });
       const json = await res.json();
       setData(json);
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
     };
     fetchData();
   }, []);
@@ -47,7 +51,7 @@ const page = ({ params }) => {
     }, [data, slug]);
   }
 
-  if (!user) {
+  if (!user || loading) {
     return <Loading />;
   }
 
