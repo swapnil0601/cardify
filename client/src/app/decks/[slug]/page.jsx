@@ -49,6 +49,8 @@ const page = ({ params }) => {
         })
       );
     }, [data, slug]);
+
+    console.log(filteredData);
   }
 
   if (!user || loading) {
@@ -58,7 +60,14 @@ const page = ({ params }) => {
   return (
     <div className="max-w-7xl mx-auto p-4 sm:px-6 lg:px-8">
       <div className="flex justify-end align-middle h-auto flex-wrap p-2 gap-5 ">
-        <button className="btn btn-primary btn-outline btn-sm">
+        <button
+          className="btn btn-primary btn-outline btn-sm"
+          onClick={() => {
+            // Save the filtered data to local storage
+            localStorage.setItem("studyCards", JSON.stringify(filteredData));
+            router.push(`/study/${slug}`);
+          }}
+        >
           Start studying
         </button>
       </div>
@@ -71,17 +80,12 @@ const page = ({ params }) => {
             <div className="card-body">
               {/* Edit button */}
               <div className="flex justify-end">
-                <div
-                  className="flex justify-end"
-                  onClick={() => {
-                    router.push(`/decks/flashcard/${flashcard._id}`);
-                  }}
-                >
+                <div className="flex justify-end">
                   <AiOutlineEdit />
                 </div>
               </div>
               <h2 className="card-title">{flashcard.question}</h2>
-              <p>{flashcard.answer}</p>
+              <p className="blur-sm">{flashcard.answer}</p>
             </div>
           </div>
         ))}
