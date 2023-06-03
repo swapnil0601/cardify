@@ -5,6 +5,7 @@ import { selectUser } from "../../redux/features/auth/authSelectors";
 import { useRouter } from "next/navigation";
 import { AiOutlineEdit } from "react-icons/ai";
 import Loading from "@/components/Common/Loading";
+import Adder from "@/components/Adder";
 
 const page = ({ params }) => {
   const { slug } = params;
@@ -89,6 +90,7 @@ const page = ({ params }) => {
             </div>
           </div>
         ))}
+        <Adder type="flashcard" />
       </div>
     </div>
   );
