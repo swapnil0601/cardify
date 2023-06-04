@@ -15,6 +15,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" metadata={metadata}>
       <body className={inter.className}>
+        <div id="portal"></div>
         <Providers>
           <div className="sticky top-0 z-50 bg-base-100 shadow-md">
             <Navbar />

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Deck from "@/components/Deck";
 import { selectUser } from "../redux/features/auth/authSelectors";
@@ -7,6 +7,9 @@ import Adder from "@/components/Adder";
 import BreadCrumbs from "@/components/Common/BreadCrumbs";
 import { useRouter } from "next/navigation";
 import Loading from "@/components/Common/Loading";
+import Modal from "@/components/Common/Modal";
+import CreateDeck from "@/components/CreateDeck";
+import { closeModal } from "../redux/features/modal/modalSlice";
 
 export default function deckPage() {
   const user = useSelector(selectUser);
@@ -21,7 +24,7 @@ export default function deckPage() {
 
   const [decks, setDecks] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [showModal, setShowModal] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(`http://localhost:3001/deck/`, {
@@ -37,17 +40,23 @@ export default function deckPage() {
     fetchData();
     setTimeout(() => {
       setLoading(false);
-    }
-      , 500);
-    
+    }, 500);
   }, []);
 
   if (!user || loading) {
     return <Loading />;
   }
-
+  const closeModal = () => {
+    setShowModal(false);
+  };
   return (
+    // {showModal && <Modal />}
     <div className="max-w-7xl mx-auto p-4 sm:px-6 lg:px-8">
+      {showModal && (
+        <Modal heading={"Create Deck"} setShowModal={setShowModal}>
+          <CreateDeck closeModal={closeModal} />
+        </Modal>
+      )}
       <BreadCrumbs />
       <div className="mt-10 container flex justify-center align-middle h-auto flex-wrap p-2 gap-5 ">
         {decks?.map((deck) => (
@@ -58,7 +67,7 @@ export default function deckPage() {
             deckId={deck._id}
           />
         ))}
-        <Adder type="Deck" />
+        <Adder setShowModal={() => setShowModal(true)} type="Deck" />
       </div>
     </div>
   );
