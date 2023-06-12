@@ -28,21 +28,26 @@ import cors from "cors";
 app.use(cors());
 
 import multer from "multer";
-app.use("/assets", express.static(path.join(__dirname, "public/assets")));
-const storage = multer.diskStorage({
+// const upload = multer({
+//   dest: "uploads/",
+//   limits: {
+//     fileSize: 50 * 1024 * 1024,
+//   },
+//   allowed: ["image/jpeg", "image/png", "image/gif", "image/svg+xml"],
+// });
+var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "public/assets");
+    cb(null, "./public/images");
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname);
+    cb(null, Date.now() + "-" + file.originalname);
   },
 });
-const upload = multer({ storage });
-
+var upload = multer({ storage: storage });
 // ROUTES WITH FILES
 
 // Register a new user
-app.post("/auth/register", upload.single("picture"), registerUser);
+app.post("/auth/register", upload.single("profileImg"), registerUser);
 app.use("/auth", authRoutes);
 // ROUTES WITHOUT FILES
 app.use("/user", userRoutes);

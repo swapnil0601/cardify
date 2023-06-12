@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
 const Register = () => {
-
   const router = useRouter();
 
   const [firstName, setFirstName] = useState("");
@@ -27,7 +26,7 @@ const Register = () => {
     };
 
     const API_URL = "http://localhost:3001";
-
+    console.log(user);
     fetch(`${API_URL}/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -59,6 +58,7 @@ const Register = () => {
           class="space-y-2 md:space-y-4"
           action="#"
           onSubmit={handleRegister}
+          enctype="multipart/form-data"
         >
           <div class="grid md:grid-cols-2 md:gap-6">
             <div class="relative z-0 w-full group">
@@ -149,7 +149,7 @@ const Register = () => {
           </div>
           <label
             class="block text-sm font-medium text-gray-900 dark:text-white"
-            for="user_avatar"
+            for="profileImg"
           >
             Upload Profile Image
           </label>
@@ -157,7 +157,11 @@ const Register = () => {
             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
             aria-describedby="profileImg"
             id="profileImg"
+            name="profileImg"
             type="file"
+            required
+            // max="500000"
+            // accept="image/jpeg,image/png,image/gif"
             onChange={(e) => setProfileImg(e.target.files[0])}
           />
 
