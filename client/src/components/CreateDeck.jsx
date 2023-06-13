@@ -33,6 +33,7 @@ const CreateDeck = ({ closeModal }) => {
         },
       });
       console.log(res);
+      closeModal();
       // router.push("/");
     } catch (err) {
       console.log(err);
