@@ -47,12 +47,12 @@ var upload = multer({ storage: storage });
 // ROUTES WITH FILES
 
 // Register a new user
-app.post("/auth/register", upload.single("profileImg"), registerUser);
-app.use("/auth", authRoutes);
+app.post("/api/auth/register", upload.single("profileImg"), registerUser);
+app.use("/api/auth", authRoutes);
 // ROUTES WITHOUT FILES
-app.use("/user", userRoutes);
-app.use("/deck", deckRoutes);
-app.use("/flashcard", flashcardRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/deck", deckRoutes);
+app.use("/api/flashcard", flashcardRoutes);
 /* MONGOOSE SETUP */
 import mongoose from "mongoose";
 const PORT = process.env.PORT || 6001;

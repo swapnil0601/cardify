@@ -1,29 +1,41 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-
+import { useSelector } from "react-redux";
+import {
+  selectToken,
+  selectUser,
+} from "../app/redux/features/auth/authSelectors";
+import axios from "axios";
 const CreateDeck = ({ closeModal }) => {
   const router = useRouter();
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [deckImg, setDeckImg] = useState("");
-
+  const token = useSelector(selectToken);
+  const user = useSelector(selectUser);
+  const userObj = JSON.parse(user);
   const handleCreateDeck = async (e) => {
     e.preventDefault();
-    const deck = { name, description, deckImg };
-
+    const deck = { user: userObj, name, description, deckImg };
+    console.log(deck);
     try {
-      const res = await fetch("http://localhost:3000/api/decks", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(deck),
+      // const res = await fetch("http://localhost:3000/api/decks", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(deck),
+      // });
+      const res = await axios.post("http://localhost:3001/api/deck", deck, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       });
-      const data = await res.json();
-      console.log(data);
-      router.push("/");
+      console.log(res);
+      // router.push("/");
     } catch (err) {
-      console.log(error);
+      console.log(err);
     }
   };
   return (

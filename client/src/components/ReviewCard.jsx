@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import Loading from "./Common/Loading";
 
 const ReviewCard = ({ cards }) => {
-  
   const router = useRouter();
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const currentCard = cards[currentCardIndex];
@@ -26,8 +25,7 @@ const ReviewCard = ({ cards }) => {
     if (currentCardIndex < cards.length - 1) {
       setCurrentCardIndex(currentCardIndex + 1);
       setIsFlipped(false);
-    }
-    else {
+    } else {
       setTimeout(() => {
         selectLoading(true);
       }, 1000);

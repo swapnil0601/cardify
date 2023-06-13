@@ -6,9 +6,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 const navbarHeight = 64;
 
-
 const LoginPage = () => {
-
   const router = useRouter();
 
   const [email, setEmail] = useState("");
@@ -23,7 +21,7 @@ const LoginPage = () => {
 
     // Make a call to the login endpoint at http://localhost:3001/auth/login
 
-    fetch("http://localhost:3001/auth/login", {
+    fetch("http://localhost:3001/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -33,12 +31,13 @@ const LoginPage = () => {
         // If the login was successful, redirect to the dashboard page
         if (data.message === "Login successful") {
           // Save the JWT token in the browser's local storage
-          localStorage.setItem("user", JSON.stringify(data.user));
-          localStorage.setItem("token", data.token);
+          // localStorage.setItem("user", JSON.stringify(data.user));
+          // localStorage.setItem("token", data.token);
           setMessage("");
-
-          const user = JSON.parse(localStorage.getItem("user"));
-          const token = localStorage.getItem("token");
+          const user = JSON.stringify(data.user);
+          const token = data.token;
+          // const user = JSON.parse(localStorage.getItem("user"));
+          // const token = localStorage.getItem("token");
 
           // Dispatch action to set user data in store
           dispatch(loginSuccess({ user, token }));

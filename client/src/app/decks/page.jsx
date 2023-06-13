@@ -1,8 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useSelector } from "react-redux";
 import Deck from "@/components/Deck";
-import { selectUser } from "../redux/features/auth/authSelectors";
+import { selectUser, selectToken } from "../redux/features/auth/authSelectors";
 import Adder from "@/components/Adder";
 import BreadCrumbs from "@/components/Common/BreadCrumbs";
 import { useRouter } from "next/navigation";
@@ -13,8 +14,8 @@ import { closeModal } from "../redux/features/modal/modalSlice";
 
 export default function deckPage() {
   const user = useSelector(selectUser);
+  const token = useSelector(selectToken);
   const router = useRouter();
-
   // If user is not logged in, redirect to login page
   useEffect(() => {
     if (!user) {
@@ -26,17 +27,15 @@ export default function deckPage() {
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch(`http://localhost:3001/deck/`, {
-        method: "GET",
+    async function fetchData() {
+      const res = await axios.get("http://localhost:3001/api/deck ", {
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: `Bearer ${token}`,
         },
       });
-      const json = await res.json();
-      setDecks(json);
-    };
+      setDecks(res.data);
+    }
     fetchData();
     setTimeout(() => {
       setLoading(false);
