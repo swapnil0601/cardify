@@ -1,12 +1,25 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/user.js";
-// Register a new user
+import cloudinary from "cloudinary";
+import { v2 as cloudinaryV2 } from "cloudinary";
+import dotenv from "dotenv";
+dotenv.config();
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET
+});
+
+// Controller function to handle user registration
 const registerUser = async (req, res) => {
-  const { firstName, lastName, username, email, password, profileImg } =
-    req.body;
-  // console.log(req.body);
   try {
+    const { firstName, lastName, username, email, password, profileImg } = req.body;
+
+    
+
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -16,27 +29,27 @@ const registerUser = async (req, res) => {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Convert profileImg to string
-    const profileImgUrl = profileImg.toString();
-    console.log(req.files);
-    console.log(req.file);
-    // const file = req.files.profileImg;
-    // const fileName = `profile${file.name}`;
-    // const filePath = `${__dirname}/public/images/${fileName}`;
-    // file.save(filePath);
+    // Upload profile image to Cloudinary
+    const uploadedImage = await cloudinaryV2.uploader.upload(profileImg, {
+      upload_preset: "profile_image",
+      public_id: `${username}avatar`,
+      allowed_formats: ["jpg", "png", "jpeg"],
+    });
 
-    // Create a new user
-    const user = new User({
+    console.log(uploadedImage);
+
+    // Create a new user instance
+    const newUser = new User({
       firstName,
       lastName,
       username,
       email,
-      profileImg: profileImgUrl,
       password: hashedPassword,
+      profileImg: uploadedImage.secure_url,
     });
 
     // Save the user to the database
-    const savedUser = await user.save();
+    const savedUser = await newUser.save();
     console.log(savedUser);
     res
       .status(201)

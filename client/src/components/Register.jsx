@@ -1,52 +1,54 @@
 "use client";
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const Register = () => {
   const router = useRouter();
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [profileImg, setProfileImg] = useState("");
-
-  const [message, setMessage] = useState("");
+  const [user, setUser] = useState({
+    firstName: "",
+    lastName: "",
+    username: "",
+    email: "",
+    password: "",
+    profileImg: null, // Update to null initially
+  });
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    const user = {
-      firstName,
-      lastName,
-      username,
-      email,
-      password,
-      profileImg,
-    };
 
     const API_URL = "http://localhost:3001";
-    console.log(user);
-    fetch(`${API_URL}/auth/register`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(user),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message === "User registered successfully") {
-          setMessage("");
-          router.push("/login");
-        } else {
-          setMessage("Username and email must be unique");
-          setFirstName("");
-          setLastName("");
-          setPassword("");
-          setProfileImg("");
-          setEmail("");
-          setUsername("");
-        }
+
+    const formData = new FormData();
+    formData.append("firstName", user.firstName);
+    formData.append("lastName", user.lastName);
+    formData.append("username", user.username);
+    formData.append("email", user.email);
+    formData.append("password", user.password);
+    formData.append("profileImg", user.profileImg);
+    
+    try {
+      const response = await fetch(`${API_URL}/auth/register`, {
+        method: "POST",
+        body: formData,
       });
+
+      const data = await response.json();
+
+      if (data.message === "User registered successfully") {
+        router.push("/login");
+      } else {
+        console.log(data);
+        setUser({
+          firstName: "",
+          lastName: "",
+          username: "",
+          email: "",
+          password: "",
+          profileImg: null,
+        });
+      }
+    } catch (error) {}
   };
   return (
     <div class="w-3/4 bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -75,7 +77,10 @@ const Register = () => {
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="John"
                 required
-                onChange={(e) => setFirstName(e.target.value)}
+                value={user.firstName}
+                onChange={(e) =>
+                  setUser({ ...user, firstName: e.target.value })
+                }
               />
             </div>
             <div class="relative z-0 w-full group">
@@ -92,7 +97,8 @@ const Register = () => {
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Snow"
                 required
-                onChange={(e) => setLastName(e.target.value)}
+                value={user.lastName}
+                onChange={(e) => setUser({ ...user, lastName: e.target.value })}
               />
             </div>
           </div>
@@ -110,7 +116,8 @@ const Register = () => {
               class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="john_snow"
               required=""
-              onChange={(e) => setUsername(e.target.value)}
+              value={user.username}
+              onChange={(e) => setUser({ ...user, username: e.target.value })}
             />
           </div>
           <div>
@@ -127,7 +134,8 @@ const Register = () => {
               class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="john@snow.com"
               required=""
-              onChange={(e) => setEmail(e.target.value)}
+              value={user.email}
+              onChange={(e) => setUser({ ...user, email: e.target.value })}
             />
           </div>
           <div>
@@ -144,7 +152,8 @@ const Register = () => {
               placeholder="••••••••"
               class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               required=""
-              onChange={(e) => setPassword(e.target.value)}
+              value={user.password}
+              onChange={(e) => setUser({ ...user, password: e.target.value })}
             />
           </div>
           <label
@@ -160,9 +169,9 @@ const Register = () => {
             name="profileImg"
             type="file"
             required
-            // max="500000"
-            // accept="image/jpeg,image/png,image/gif"
-            onChange={(e) => setProfileImg(e.target.files[0])}
+            onChange={(e) =>
+              setUser({ ...user, profileImg: e.target.files[0] })
+            }
           />
 
           <button

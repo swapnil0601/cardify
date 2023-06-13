@@ -28,13 +28,14 @@ import cors from "cors";
 app.use(cors());
 
 import multer from "multer";
-// const upload = multer({
-//   dest: "uploads/",
-//   limits: {
-//     fileSize: 50 * 1024 * 1024,
-//   },
-//   allowed: ["image/jpeg", "image/png", "image/gif", "image/svg+xml"],
-// });
+
+const upload = multer({
+  dest: "uploads/",
+  limits: {
+    fileSize: 50 * 1024 * 1024,
+  },
+  allowed: ["image/jpeg", "image/png", "image/gif", "image/svg+xml"],
+});
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./public/images");
@@ -43,12 +44,11 @@ var storage = multer.diskStorage({
     cb(null, Date.now() + "-" + file.originalname);
   },
 });
-var upload = multer({ storage: storage });
-// ROUTES WITH FILES
 
-// Register a new user
+// ROUTES WITH FILES
 app.post("/auth/register", upload.single("profileImg"), registerUser);
 app.use("/auth", authRoutes);
+
 // ROUTES WITHOUT FILES
 app.use("/user", userRoutes);
 app.use("/deck", deckRoutes);
