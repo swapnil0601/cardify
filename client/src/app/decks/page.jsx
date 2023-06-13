@@ -35,6 +35,8 @@ export default function deckPage() {
         },
       });
       setDecks(res.data);
+      // Filter out decks that are not owned by the user
+      setDecks(res.data.filter((deck) => deck.user === user._id));
     }
     fetchData();
     setTimeout(() => {
