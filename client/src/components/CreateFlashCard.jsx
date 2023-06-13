@@ -1,29 +1,47 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-
-const CreateFlashCard = ({ closeModal }) => {
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { selectToken } from "../app/redux/features/auth/authSelectors";
+const CreateFlashCard = ({ deck, closeModal }) => {
   const router = useRouter();
 
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
-
+  const token = useSelector(selectToken);
   const handleCreateCard = async (e) => {
     e.preventDefault();
-    const card = { question, answer };
-
+    const card = { deck, question, answer };
+    console.log(card);
     try {
-      const res = await fetch("http://localhost:3001/flashcard", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(card),
-      });
-      const data = await res.json();
-      console.log(data);
-      router.push("/");
+      const res = await axios.post(
+        "http://localhost:3001/api/flashcard",
+        card,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(res);
+      closeModal();
     } catch (err) {
       console.log(err);
     }
+    // try {
+    //   const res = await fetch("http://localhost:3001/flashcard", {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify(card),
+    //   });
+    //   const data = await res.json();
+    //   console.log(data);
+    //   router.push("/");
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
   return (
     <div class="p-6 space-y-4 md:space-y-6 sm:p-8">

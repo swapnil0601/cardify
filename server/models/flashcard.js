@@ -31,11 +31,6 @@ const flashcardSchema = new mongoose.Schema({
     ref: "Deck",
     required: [true, "Deck is required."],
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: [true, "User is required."],
-  },
 });
 
 const Flashcard = mongoose.model("Flashcard", flashcardSchema);
