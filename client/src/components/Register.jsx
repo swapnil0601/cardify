@@ -10,7 +10,6 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [profileImg, setProfileImg] = useState("");
 
   const [message, setMessage] = useState("");
 
@@ -22,7 +21,6 @@ const Register = () => {
       username,
       email,
       password,
-      profileImg,
     };
 
     const API_URL = "http://localhost:3001";
@@ -42,7 +40,6 @@ const Register = () => {
           setFirstName("");
           setLastName("");
           setPassword("");
-          setProfileImg("");
           setEmail("");
           setUsername("");
         }
@@ -147,24 +144,6 @@ const Register = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <label
-            class="block text-sm font-medium text-gray-900 dark:text-white"
-            for="profileImg"
-          >
-            Upload Profile Image
-          </label>
-          <input
-            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-            aria-describedby="profileImg"
-            id="profileImg"
-            name="profileImg"
-            type="file"
-            required
-            // max="500000"
-            // accept="image/jpeg,image/png,image/gif"
-            onChange={(e) => setProfileImg(e.target.files[0])}
-          />
-
           <button
             type="submit"
             className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-accent hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"

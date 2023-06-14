@@ -58,7 +58,7 @@ const page = ({ params }) => {
     setTimeout(() => {
       setLoading(false);
     }, 500);
-  }, []);
+  }, [showModal]);
   const [filteredData, setFilteredData] = useState([]);
 
   if (user) {

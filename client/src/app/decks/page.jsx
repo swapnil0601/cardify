@@ -42,7 +42,7 @@ export default function deckPage() {
     setTimeout(() => {
       setLoading(false);
     }, 500);
-  }, []);
+  }, [showModal]);
 
   if (!user || loading) {
     return <Loading />;

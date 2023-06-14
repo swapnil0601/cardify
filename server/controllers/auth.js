@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/user.js";
 // Register a new user
 const registerUser = async (req, res) => {
-  const { firstName, lastName, username, email, password, profileImg } =
+  const { firstName, lastName, username, email, password } =
     req.body;
   // console.log(req.body);
   try {
@@ -16,22 +16,12 @@ const registerUser = async (req, res) => {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Convert profileImg to string
-    const profileImgUrl = profileImg.toString();
-    console.log(req.files);
-    console.log(req.file);
-    // const file = req.files.profileImg;
-    // const fileName = `profile${file.name}`;
-    // const filePath = `${__dirname}/public/images/${fileName}`;
-    // file.save(filePath);
-
     // Create a new user
     const user = new User({
       firstName,
       lastName,
       username,
       email,
-      profileImg: profileImgUrl,
       password: hashedPassword,
     });
 

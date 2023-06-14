@@ -12,13 +12,12 @@ const CreateDeck = ({ closeModal }) => {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [deckImg, setDeckImg] = useState("");
   const token = useSelector(selectToken);
   const user = useSelector(selectUser);
-  const userObj = JSON.parse(user);
+  const userObj = user;
   const handleCreateDeck = async (e) => {
     e.preventDefault();
-    const deck = { user: userObj, name, description, deckImg };
+    const deck = { user: userObj, name, description};
     console.log(deck);
     try {
       // const res = await fetch("http://localhost:3000/api/decks", {
@@ -84,19 +83,6 @@ const CreateDeck = ({ closeModal }) => {
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
-        <label
-          class="block text-sm font-medium text-gray-900 dark:text-white"
-          for="deckImg"
-        >
-          Upload Deck Image
-        </label>
-        <input
-          class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-          aria-describedby="deckImg"
-          id="deckImg"
-          type="file"
-          onChange={(e) => setDeckImg(e.target.files[0])}
-        />
         <div className="flex gap-3">
           <button
             type="button"

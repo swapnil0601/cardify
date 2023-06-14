@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../app/redux/features/auth/authSlice";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 const navbarHeight = 64;
 
 const LoginPage = () => {

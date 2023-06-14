@@ -9,10 +9,6 @@ const deckSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  imgPath: {
-    type: String,
-    default: "",
-  },
   createdAt: {
     type: Date,
     default: Date.now,

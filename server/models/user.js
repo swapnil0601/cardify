@@ -24,10 +24,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  profileImg: {
-    type: String,
-    default: "",
-  },
   decks: [
     {
       type: mongoose.Schema.Types.ObjectId,

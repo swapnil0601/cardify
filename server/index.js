@@ -27,32 +27,13 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: "true" }));
 import cors from "cors";
 app.use(cors());
 
-import multer from "multer";
-// const upload = multer({
-//   dest: "uploads/",
-//   limits: {
-//     fileSize: 50 * 1024 * 1024,
-//   },
-//   allowed: ["image/jpeg", "image/png", "image/gif", "image/svg+xml"],
-// });
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./public/images");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
-});
-var upload = multer({ storage: storage });
-// ROUTES WITH FILES
 
-// Register a new user
-app.post("/api/auth/register", upload.single("profileImg"), registerUser);
+app.post("/api/auth/register", registerUser);
 app.use("/api/auth", authRoutes);
-// ROUTES WITHOUT FILES
 app.use("/api/user", userRoutes);
 app.use("/api/deck", deckRoutes);
 app.use("/api/flashcard", flashcardRoutes);
+
 /* MONGOOSE SETUP */
 import mongoose from "mongoose";
 const PORT = process.env.PORT || 6001;
