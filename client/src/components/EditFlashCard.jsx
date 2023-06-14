@@ -4,19 +4,20 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { selectToken } from "../app/redux/features/auth/authSelectors";
-const CreateFlashCard = ({ deck, closeModal }) => {
+
+const EditFlashCard = ({ deck, closeModal, cardId }) => {
   const router = useRouter();
 
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const token = useSelector(selectToken);
-  const handleCreateCard = async (e) => {
+  const handleEditCard = async (e) => {
     e.preventDefault();
     const card = { deck, question, answer };
     console.log(card);
     try {
-      const res = await axios.post(
-        "http://localhost:3001/api/flashcard",
+      const res = await axios.patch(
+        `http://localhost:3001/api/flashcard/${cardId}`,
         card,
         {
           headers: {
@@ -30,28 +31,16 @@ const CreateFlashCard = ({ deck, closeModal }) => {
     } catch (err) {
       console.log(err);
     }
-    // try {
-    //   const res = await fetch("http://localhost:3001/flashcard", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(card),
-    //   });
-    //   const data = await res.json();
-    //   console.log(data);a
-    //   router.push("/");
-    // } catch (err) {
-    //   console.log(err);
-    // }
   };
   return (
     <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
       <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-        Create Flash Card
+        Edit Flash Card
       </h1>
       <form
         class="space-y-2 md:space-y-4"
         action="#"
-        onSubmit={handleCreateCard}
+        onSubmit={handleEditCard}
       >
         <div class="relative z-0 w-full group">
           <label
@@ -100,7 +89,7 @@ const CreateFlashCard = ({ deck, closeModal }) => {
             type="submit"
             className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-accent hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
           >
-            Create Card
+            Edit Card
           </button>
         </div>
       </form>
@@ -108,4 +97,6 @@ const CreateFlashCard = ({ deck, closeModal }) => {
   );
 };
 
-export default CreateFlashCard;
+export default EditFlashCard;
+
+

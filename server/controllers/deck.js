@@ -39,13 +39,13 @@ const createDeck = async (req, res) => {
 // Update a specific deck by its ID
 const updateDeck = async (req, res) => {
   try {
+    console.log(req.params.id);
     const deck = await Deck.findByIdAndUpdate(
       req.params.id,
-      // Can edit only name and description
-      {set: { name: req.body.name, description: req.body.description }},
       {
-        new: true,
-      }
+        $set: req.body,
+      },
+      { new: true }
     );
     res.json(deck);
   } catch (error) {

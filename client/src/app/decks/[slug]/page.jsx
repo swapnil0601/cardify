@@ -6,12 +6,14 @@ import {
   selectToken,
 } from "../../redux/features/auth/authSelectors";
 import { useRouter } from "next/navigation";
-import { AiOutlineEdit } from "react-icons/ai";
 import Loading from "@/components/Common/Loading";
 import Adder from "@/components/Adder";
 import axios from "axios";
 import CreateFlashCard from "@/components/CreateFlashCard";
+import EditFlashCard from "@/components/EditFlashCard";
 import Modal from "@/components/Common/Modal";
+import FlashCard from "@/components/flashCard";
+
 const page = ({ params }) => {
   const { slug } = params;
 
@@ -22,28 +24,20 @@ const page = ({ params }) => {
   const token = useSelector(selectToken);
   const router = useRouter();
 
+  const [editModal, setEditModal] = useState(false);
+
+  const [cardId, setCardId] = useState(null);
+
+  const editCloseModal = () => {
+    setEditModal(false);
+  };
+
   useEffect(() => {
     if (!user) {
       router.push("/login");
     }
   }, [user]);
 
-  //   const fetchData = async () => {
-  //     const res = await fetch(`http://localhost:3001/flashcard/`, {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: "Bearer " + localStorage.getItem("token"),
-  //       },
-  //     });
-  //     const json = await res.json();
-  //     setData(json);
-  //     setTimeout(() => {
-  //       setLoading(false);
-  //     }, 500);
-  //   };
-  //   fetchData();
-  // }, []);
   useEffect(() => {
     async function fetchData() {
       const res = await axios.get("http://localhost:3001/api/flashcard ", {
@@ -58,7 +52,7 @@ const page = ({ params }) => {
     setTimeout(() => {
       setLoading(false);
     }, 500);
-  }, [showModal]);
+  }, [showModal, editModal]);
   const [filteredData, setFilteredData] = useState([]);
 
   if (user) {
@@ -87,6 +81,11 @@ const page = ({ params }) => {
           <CreateFlashCard deck={slug} closeModal={closeModal} />
         </Modal>
       )}
+      {editModal && (
+        <Modal heading={"Edit Deck"} setShowModal={setEditModal}>
+          <EditFlashCard closeModal={editCloseModal} cardId={cardId} deck={slug} />
+        </Modal>
+      )}
       <div className="flex justify-end align-middle h-auto flex-wrap p-2 gap-5 ">
         <button
           className="btn btn-primary btn-outline btn-sm"
@@ -101,21 +100,13 @@ const page = ({ params }) => {
       </div>
       <div className="mt-10 container flex justify-center align-middle h-auto flex-wrap p-2 gap-5 ">
         {filteredData?.map((flashcard) => (
-          <div
+          <FlashCard
             key={flashcard._id}
-            className="max-w-sm w-64 bg-base-300 text-base-content border border-base-200 rounded-lg shadow cursor-pointer"
-          >
-            <div className="card-body">
-              {/* Edit button */}
-              <div className="flex justify-end">
-                <div className="flex justify-end">
-                  <AiOutlineEdit />
-                </div>
-              </div>
-              <h2 className="card-title">{flashcard.question}</h2>
-              <p className="blur-sm">{flashcard.answer}</p>
-            </div>
-          </div>
+            flashcard={flashcard}
+            cardId={flashcard._id}
+            setEditModal={setEditModal}
+            setCardId={setCardId}
+          />
         ))}
         <Adder setShowModal={() => setShowModal(true)} type="flashcard" />
       </div>
@@ -124,3 +115,4 @@ const page = ({ params }) => {
 };
 
 export default page;
+

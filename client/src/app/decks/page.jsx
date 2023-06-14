@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import Loading from "@/components/Common/Loading";
 import Modal from "@/components/Common/Modal";
 import CreateDeck from "@/components/CreateDeck";
+import EditDeck from "@/components/EditDeck";
 import { closeModal } from "../redux/features/modal/modalSlice";
 
 export default function deckPage() {
@@ -26,6 +27,17 @@ export default function deckPage() {
   const [decks, setDecks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+
+  const [editModal, setEditModal] = useState(false);
+
+  const [deckId, setDeckId] = useState(null);
+
+  const editCloseModal = () => {
+    setEditModal(false);
+  };
+
+
+
   useEffect(() => {
     async function fetchData() {
       const res = await axios.get("http://localhost:3001/api/deck ", {
@@ -42,7 +54,7 @@ export default function deckPage() {
     setTimeout(() => {
       setLoading(false);
     }, 500);
-  }, [showModal]);
+  }, [showModal, editModal]);
 
   if (!user || loading) {
     return <Loading />;
@@ -58,6 +70,11 @@ export default function deckPage() {
           <CreateDeck closeModal={closeModal} />
         </Modal>
       )}
+      {editModal && (
+        <Modal heading={"Edit Deck"} setShowModal={setEditModal}>
+          <EditDeck closeModal={editCloseModal} deckId={deckId} />
+        </Modal>
+      )}
       <BreadCrumbs />
       <div className="mt-10 container flex justify-center align-middle h-auto flex-wrap p-2 gap-5 ">
         {decks?.map((deck) => (
@@ -66,6 +83,8 @@ export default function deckPage() {
             name={deck.name}
             description={deck.description}
             deckId={deck._id}
+            setEditModal={() => setEditModal(true)}
+            setDeckId={setDeckId}
           />
         ))}
         <Adder setShowModal={() => setShowModal(true)} type="Deck" />

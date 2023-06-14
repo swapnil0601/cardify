@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
 import { useRouter } from "next/navigation";
+import { AiOutlineEdit } from "react-icons/ai";
 
-export default function Deck({ name, description, deckId }) {
+export default function Deck({ name, description, deckId, setEditModal, setDeckId }) {
 
   const router = useRouter();
 
@@ -14,9 +15,22 @@ export default function Deck({ name, description, deckId }) {
           router.push(`/decks/${deckId}`);
         }}
       >
+        <div
+          className="flex justify-end"
+          onClick={(e) => {
+            e.stopPropagation();
+            setEditModal(true);
+            setDeckId(deckId);
+          }}
+        >
+          <div className="flex justify-end">
+            <AiOutlineEdit />
+          </div>
+        </div>
         <h2 className="card-title">{name}</h2>
         <p>{description}</p>
       </div>
     </div>
   );
 }
+

@@ -1,18 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
+import { AiOutlineEdit } from "react-icons/ai";
 
-export default function FlashCard({}) {
+export default function FlashCard({ flashcard, cardId, setEditModal, setCardId }) {
+  
+  const [blur, setBlur] = useState(true);
+
   return (
-    <a
-      href="#"
-      class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+    <div
+      className="max-w-sm w-64 bg-base-300 text-base-content border border-base-200 rounded-lg shadow cursor-pointer"
     >
-      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-        Noteworthy technology acquisitions 2021
-      </h5>
-      <p class="font-normal text-gray-700 dark:text-gray-400">
-        Here are the biggest enterprise technology acquisitions of 2021 so far,
-        in reverse chronological order.
-      </p>
-    </a>
+      <div className="card-body">
+        {/* Edit button */}
+        <div
+          className="flex justify-end"
+          onClick={(e) => {
+            e.stopPropagation();
+            setEditModal(true);
+            setCardId(cardId);
+          }}
+        >
+          <div className="flex justify-end">
+            <AiOutlineEdit />
+          </div>
+        </div>
+        <h2 className="card-title">{flashcard.question}</h2>
+        <p
+          className = {blur ? "blur-sm cursor-pointer" : "cursor-pointer"}
+          onClick = {() => setBlur(!blur)}
+        >
+          {flashcard.answer}
+        </p>
+      </div>
+    </div>
   );
 }
