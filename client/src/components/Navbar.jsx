@@ -59,12 +59,6 @@ const Navbar = () => {
                       Decks
                     </div>
                   </Link>
-                  <Link href="/flashcards">
-                    <div className="text-accent-content hover:text-base-content border-b-2 border-b-transparent hover:border-b-primary px-3 py-2 text-sm font-medium">
-                      FlashCards
-                    </div>
-                  </Link>
-
                   <Link
                     href="/"
                     onClick={() => {
