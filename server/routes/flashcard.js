@@ -12,7 +12,7 @@ import {
   updateFlashcard,
 } from "../controllers/flashcard.js";
 
-router.use(verifyToken);
+// router.use(verifyToken);
 
 router.route("/").get(getAllFlashcards).post(createFlashcard);
 router

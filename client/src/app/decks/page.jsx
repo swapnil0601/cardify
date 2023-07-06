@@ -11,7 +11,6 @@ import Loading from "@/components/Common/Loading";
 import Modal from "@/components/Common/Modal";
 import CreateDeck from "@/components/CreateDeck";
 import EditDeck from "@/components/EditDeck";
-import { closeModal } from "../redux/features/modal/modalSlice";
 
 export default function deckPage() {
   const user = useSelector(selectUser);

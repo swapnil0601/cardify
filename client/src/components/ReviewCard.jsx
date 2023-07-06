@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import "../../styles/component.css";
-import GroupButton from "./Common/groupButton";
 import { useRouter } from "next/navigation";
 import Loading from "./Common/Loading";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { selectToken } from "../app/redux/features/auth/authSelectors";
 
 const ReviewCard = ({ cards }) => {
   const router = useRouter();
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const currentCard = cards[currentCardIndex];
 
-  const [loading, selectLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -21,14 +23,38 @@ const ReviewCard = ({ cards }) => {
     setIsFlipped(!isFlipped);
   };
 
-  const handleNextClick = () => {
+  const token = useSelector(selectToken);
+
+  const updateFlashcard = async (grade) => {
+    try {
+      const response = await axios.patch(
+        `http://localhost:3001/api/flashcard/review/${currentCard._id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          grade,
+        }
+      );
+      console.log(response.data.message);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleNextClick = async (e) => {
+    const grade = e.target.id;
+    console.log(token);
+    setLoading(true);
+    await updateFlashcard(grade);
+    setLoading(false);
+
     if (currentCardIndex < cards.length - 1) {
       setCurrentCardIndex(currentCardIndex + 1);
       setIsFlipped(false);
     } else {
-      setTimeout(() => {
-        selectLoading(true);
-      }, 1000);
+      localStorage.removeItem("studyCards");
       router.push("/decks");
     }
   };
@@ -56,14 +82,35 @@ const ReviewCard = ({ cards }) => {
             </h5>
             <p className="font-normal text-base-100">{answer}</p>
           </div>
-          <div
-            className="flex rounded-md shadow-sm w-auto"
-            onClick={handleNextClick}
-          >
-            <GroupButton name="Easy" />
-            <GroupButton name="Medium" />
-            <GroupButton name="Hard" />
-            <GroupButton name="Again" />
+          <div className="flex justify-between mt-4">
+            <button
+              className="btn btn-primary btn-outline btn-sm"
+              id="easy"
+              onClick={handleNextClick}
+            >
+              Easy
+            </button>
+            <button
+              className="btn btn-primary btn-outline btn-sm"
+              id="medium"
+              onClick={handleNextClick}
+            >
+              Good
+            </button>
+            <button
+              className="btn btn-primary btn-outline btn-sm"
+              id="good"
+              onClick={handleNextClick}
+            >
+              Hard
+            </button>
+            <button
+              className="btn btn-primary btn-outline btn-sm"
+              id="again"
+              onClick={handleNextClick}
+            >
+              Again
+            </button>
           </div>
         </div>
       </div>

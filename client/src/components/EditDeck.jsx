@@ -79,6 +79,7 @@ const EditDeck = ({ closeModal, deckId }) => {
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
+
         <div className="flex gap-3">
           <button
             type="button"
@@ -94,6 +95,7 @@ const EditDeck = ({ closeModal, deckId }) => {
             Edit Deck
           </button>
         </div>
+      
       </form>
     </div>
   );

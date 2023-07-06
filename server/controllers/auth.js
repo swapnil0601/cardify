@@ -5,7 +5,6 @@ import User from "../models/user.js";
 const registerUser = async (req, res) => {
   const { firstName, lastName, username, email, password } =
     req.body;
-  // console.log(req.body);
   try {
     // Check if user already exists
     const existingUser = await User.findOne({ email });

@@ -59,19 +59,19 @@ const deleteFlashcard = async (req, res) => {
 };
 
 // Scheduling algorithm based on Anki
-const scheduleFlashcard = (flashcard) => {
+const scheduleFlashcard = (flashcard, grade) => {
   const { interval, ease } = flashcard;
 
-  if (flashcard.grade === "again") {
+  if (grade === "again") {
     flashcard.interval = 1; // Reset the interval to the initial value
     flashcard.ease = Math.max(1.3, ease - 0.2); // Decrease the ease by 0.2 but not below 1.3
-  } else if (flashcard.grade === "hard") {
+  } else if (grade === "hard") {
     flashcard.interval = Math.ceil(interval * 1.2); // Multiply the interval by 1.2
     flashcard.ease = Math.max(1.3, ease - 0.15); // Decrease the ease by 0.15 but not below 1.3
-  } else if (flashcard.grade === "good") {
+  } else if (grade === "good") {
     flashcard.interval = Math.ceil(interval * ease); // Multiply the interval by the ease
     flashcard.ease = ease; // Keep the ease unchanged
-  } else if (flashcard.grade === "easy") {
+  } else if (grade === "easy") {
     flashcard.interval = Math.ceil(interval * ease * 1.3); // Multiply the interval by the ease and a bonus factor of 1.3
     flashcard.ease = Math.min(2.5, ease + 0.15); // Increase the ease by 0.15 but not above 2.5
   }
@@ -94,7 +94,7 @@ const updateFlashcard = async (req, res) => {
     }
 
     flashcard.grade = grade;
-    const scheduledFlashcard = scheduleFlashcard(flashcard);
+    const scheduledFlashcard = scheduleFlashcard(flashcard, grade);
 
     await scheduledFlashcard.save();
 

@@ -13,6 +13,7 @@ import CreateFlashCard from "@/components/CreateFlashCard";
 import EditFlashCard from "@/components/EditFlashCard";
 import Modal from "@/components/Common/Modal";
 import FlashCard from "@/components/flashCard";
+import DeleteModal from "@/components/DeleteModal";
 
 const page = ({ params }) => {
   const { slug } = params;
@@ -25,11 +26,16 @@ const page = ({ params }) => {
   const router = useRouter();
 
   const [editModal, setEditModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
 
   const [cardId, setCardId] = useState(null);
 
   const editCloseModal = () => {
     setEditModal(false);
+  };
+
+  const deleteCloseModal = () => {
+    setDeleteModal(false);
   };
 
   useEffect(() => {
@@ -52,12 +58,11 @@ const page = ({ params }) => {
     setTimeout(() => {
       setLoading(false);
     }, 500);
-  }, [showModal, editModal]);
+  }, [showModal, editModal, deleteModal]);
   const [filteredData, setFilteredData] = useState([]);
 
   if (user) {
     useEffect(() => {
-      console.log(data);
       setFilteredData(
         data.filter((flashcard) => {
           return flashcard.deck === slug;
@@ -65,7 +70,6 @@ const page = ({ params }) => {
       );
     }, [data, slug]);
 
-    console.log(filteredData);
   }
 
   if (!user || loading) {
@@ -86,6 +90,12 @@ const page = ({ params }) => {
           <EditFlashCard closeModal={editCloseModal} cardId={cardId} deck={slug} />
         </Modal>
       )}
+      {deleteModal && (
+        <Modal heading={"Delete Deck"} setShowModal={setDeleteModal}>
+          <DeleteModal closeModal={deleteCloseModal} cardId={cardId} />
+        </Modal>
+      )}
+
       <div className="flex justify-end align-middle h-auto flex-wrap p-2 gap-5 ">
         <button
           className="btn btn-primary btn-outline btn-sm"
@@ -105,6 +115,7 @@ const page = ({ params }) => {
             flashcard={flashcard}
             cardId={flashcard._id}
             setEditModal={setEditModal}
+            setDeleteModal={setDeleteModal}
             setCardId={setCardId}
           />
         ))}

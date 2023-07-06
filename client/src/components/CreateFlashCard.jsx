@@ -13,7 +13,6 @@ const CreateFlashCard = ({ deck, closeModal }) => {
   const handleCreateCard = async (e) => {
     e.preventDefault();
     const card = { deck, question, answer };
-    console.log(card);
     try {
       const res = await axios.post(
         "http://localhost:3001/api/flashcard",
@@ -30,18 +29,6 @@ const CreateFlashCard = ({ deck, closeModal }) => {
     } catch (err) {
       console.log(err);
     }
-    // try {
-    //   const res = await fetch("http://localhost:3001/flashcard", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(card),
-    //   });
-    //   const data = await res.json();
-    //   console.log(data);a
-    //   router.push("/");
-    // } catch (err) {
-    //   console.log(err);
-    // }
   };
   return (
     <div class="p-6 space-y-4 md:space-y-6 sm:p-8">

@@ -18,24 +18,15 @@ const CreateDeck = ({ closeModal }) => {
   const handleCreateDeck = async (e) => {
     e.preventDefault();
     const deck = { user: userObj, name, description};
-    console.log(deck);
     try {
-      // const res = await fetch("http://localhost:3000/api/decks", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(deck),
-      // });
       const res = await axios.post("http://localhost:3001/api/deck", deck, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(res);
       closeModal();
-      // router.push("/");
     } catch (err) {
-      console.log(err);
     }
   };
   return (
