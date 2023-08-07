@@ -23,8 +23,7 @@ const CallToAction = () => {
           Welcome to our Website
         </h1>
         <p className="text-lg mb-8">
-          We provide high-quality services to meet your needs. Choose the best
-          option below.
+          Spaced Repetition made easy. Learn anything, anywhere, anytime.
         </p>
 
         <div className="flex flex-col md:flex-row gap-4 justify-center">
