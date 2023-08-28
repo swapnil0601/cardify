@@ -23,7 +23,7 @@ const Register = () => {
       password,
     };
 
-    const API_URL = "http://localhost:3001";
+    const API_URL = process.env.SERVER;
     console.log(user);
     fetch(`${API_URL}/api/auth/register`, {
       method: "POST",

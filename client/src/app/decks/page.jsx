@@ -35,11 +35,9 @@ export default function deckPage() {
     setEditModal(false);
   };
 
-
-
   useEffect(() => {
     async function fetchData() {
-      const res = await axios.get("http://localhost:3001/api/deck ", {
+      const res = await axios.get(`${process.env.SERVER}/api/deck `, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,

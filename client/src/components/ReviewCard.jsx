@@ -28,7 +28,7 @@ const ReviewCard = ({ cards }) => {
   const updateFlashcard = async (grade) => {
     try {
       const response = await axios.patch(
-        `http://localhost:3001/api/flashcard/review/${currentCard._id}`,
+        `${process.env.SERVER}/flashcard/review/${currentCard._id}`,
         {
           headers: {
             "Content-Type": "application/json",

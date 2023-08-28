@@ -15,7 +15,7 @@ const CreateFlashCard = ({ deck, closeModal }) => {
     const card = { deck, question, answer };
     try {
       const res = await axios.post(
-        "http://localhost:3001/api/flashcard",
+        `${process.env.SERVER}/api/flashcard`,
         card,
         {
           headers: {

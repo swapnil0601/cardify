@@ -9,7 +9,7 @@ const DeleteModal = ({ closeModal, cardId }) => {
   const handleDeleteFlashcard = async (e) => {
     try {
       const res = await axios.delete(
-        `http://localhost:3001/api/flashcard/${cardId}`,
+        `${process.env.SERVER}/api/flashcard/${cardId}`,
         {
           headers: {
             "Content-Type": "application/json",

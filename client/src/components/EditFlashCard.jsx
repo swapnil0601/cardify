@@ -17,7 +17,7 @@ const EditFlashCard = ({ deck, closeModal, cardId }) => {
     console.log(card);
     try {
       const res = await axios.patch(
-        `http://localhost:3001/api/flashcard/${cardId}`,
+        `${process.env.SERVER}/api/flashcard/${cardId}`,
         card,
         {
           headers: {
@@ -37,11 +37,7 @@ const EditFlashCard = ({ deck, closeModal, cardId }) => {
       <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
         Edit Flash Card
       </h1>
-      <form
-        class="space-y-2 md:space-y-4"
-        action="#"
-        onSubmit={handleEditCard}
-      >
+      <form class="space-y-2 md:space-y-4" action="#" onSubmit={handleEditCard}>
         <div class="relative z-0 w-full group">
           <label
             for="question"
@@ -98,5 +94,3 @@ const EditFlashCard = ({ deck, closeModal, cardId }) => {
 };
 
 export default EditFlashCard;
-
-

@@ -20,7 +20,7 @@ const LoginPage = () => {
 
     // Make a call to the login endpoint at http://localhost:3001/auth/login
 
-    fetch("http://localhost:3001/api/auth/login", {
+    fetch(`${process.env.SERVER}/api/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),

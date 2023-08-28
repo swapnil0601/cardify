@@ -16,18 +16,22 @@ const EditDeck = ({ closeModal, deckId }) => {
   const token = useSelector(selectToken);
   const user = useSelector(selectUser);
   const userObj = user;
-  
+
   const handleEditDeck = async (e) => {
     e.preventDefault();
-    const deck = { user: userObj, name, description};
+    const deck = { user: userObj, name, description };
     console.log(deck);
     try {
-      const res = await axios.patch(`http://localhost:3001/api/deck/${deckId}`, deck, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.patch(
+        `${process.env.SERVER}/api/deck/${deckId}`,
+        deck,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       console.log(res);
       closeModal();
     } catch (err) {
@@ -39,11 +43,7 @@ const EditDeck = ({ closeModal, deckId }) => {
       <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
         Edit Deck
       </h1>
-      <form
-        class="space-y-2 md:space-y-4"
-        action="#"
-        onSubmit={handleEditDeck}
-      >
+      <form class="space-y-2 md:space-y-4" action="#" onSubmit={handleEditDeck}>
         <div class="relative z-0 w-full group">
           <label
             for="name"
@@ -95,7 +95,6 @@ const EditDeck = ({ closeModal, deckId }) => {
             Edit Deck
           </button>
         </div>
-      
       </form>
     </div>
   );

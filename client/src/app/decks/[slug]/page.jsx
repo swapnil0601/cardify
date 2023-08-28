@@ -46,7 +46,7 @@ const page = ({ params }) => {
 
   useEffect(() => {
     async function fetchData() {
-      const res = await axios.get("http://localhost:3001/api/flashcard ", {
+      const res = await axios.get(`${process.env.SERVER}/api/flashcard `, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -69,7 +69,6 @@ const page = ({ params }) => {
         })
       );
     }, [data, slug]);
-
   }
 
   if (!user || loading) {
@@ -87,7 +86,11 @@ const page = ({ params }) => {
       )}
       {editModal && (
         <Modal heading={"Edit Deck"} setShowModal={setEditModal}>
-          <EditFlashCard closeModal={editCloseModal} cardId={cardId} deck={slug} />
+          <EditFlashCard
+            closeModal={editCloseModal}
+            cardId={cardId}
+            deck={slug}
+          />
         </Modal>
       )}
       {deleteModal && (
@@ -126,4 +129,3 @@ const page = ({ params }) => {
 };
 
 export default page;
-
