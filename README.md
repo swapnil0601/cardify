@@ -4,6 +4,8 @@ Students devote a significant amount of time acquiring new information that will
 Cardify the concept of Spaced Repetition to help students remember what they have learned for the rest of their lives. It will help them recall concepts in as little as 10 minutes per day. We provide a user-friendly interface for students to facilitate the process to enable them to cultivate this habit.
 
 
+[![Watch the video](https://img.youtube.com/vi/31b10geZ7fc/hqdefault.jpg)](https://www.youtube.com/embed/31b10geZ7fc)
+
 
 https://github.com/swapnil0601/cardify/assets/81556194/fe35f9bd-1bca-45cf-9ca4-c631524f7f18
 
